@@ -27,7 +27,7 @@ function appinstall {
 # Install Favourite Applications
 echo 'Installing selected favourite applications...'
 echo 'Requires root privileges:'
-sudo apt-get install -y --no-install-recommends darktable easytag filezilla gimp gimp-plugin-registry grsync inkscape mypaint nautilus-dropbox nautilus-open-terminal pyrenamer xchat
+sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat
 echo 'Done.'
 main
 }
@@ -36,87 +36,9 @@ main
 function toolinstall {
 echo 'Installing system tools...'
 echo 'Requires root privileges:'
-sudo apt-get install -y --no-install-recommends aptitude dconf-tools openjdk-7-jdk openssh-server p7zip-full ppa-purge samba ssh synaptic zsync
+sudo apt-get install -y --no-install-recommends ppa-purge
 echo 'Done.'
 main
-}
-
-
-# INSTALL GNOME SHELL
-function gnomeextra {
-INPUT=0
-echo ''
-echo 'What would you like to do? (Enter the number of your choice)'
-echo ''
-while [ $INPUT != 1 ] && [ $INPUT != 2 ] && [ $INPUT != 3 ]
-do
-echo '1. Add GNOME3 PPA?'
-echo '2. Add GNOME3 Staging PPA?'
-echo '3. Install GNOME Shell?'
-echo '4. Install extra GNOME applications?'
-echo '5. Configure GNOME Shell Specific Settings?'
-echo '6. Return.'
-echo ''
-read INPUT
-# Add GNOME3 PPA
-if [ $INPUT -eq 1 ]; then
-    echo 'Adding GNOME3 PPA to software sources...'
-    echo 'Requires root privileges:'
-    sudo add-apt-repository -y ppa:gnome3-team/gnome3
-    echo 'Updating repository information...'
-    sudo apt-get update -qq
-    echo 'Performing system upgrade...'
-    sudo apt-get dist-upgrade -y
-    echo 'Done.'
-    gnomeextra
-# Add GNOME3 Staging PPA
-elif [ $INPUT -eq 2 ]; then
-    echo 'Adding GNOME3 Staging PPA to software sources...'
-    echo 'Requires root privileges:'
-    sudo add-apt-repository -y ppa:gnome3-team/gnome3-staging
-    echo 'Updating repository information...'
-    sudo apt-get update -qq
-    echo 'Performing system upgrade...'
-    sudo apt-get dist-upgrade -y
-    echo 'Done.'
-    gnomeextra
-# Install GNOME Shell
-elif [ $INPUT -eq 3 ]; then
-    echo 'Installing GNOME Shell...'
-    echo 'Requires root privileges:'
-    sudo apt-get install -y fonts-cantarell gnome-shell
-    echo 'Done.'
-    gnomeextra
-# Install Extra GNOME Apps
-elif [ $INPUT -eq 4 ]; then
-    echo 'Installing extra GNOME applications...'
-    echo 'Requires root privileges:'
-    sudo apt-get install -y bijiben gnome-clocks gnome-contacts gnome-documents gnome-sushi gnome-tweak-tool gnome-weather
-    echo 'Done.'
-    gnomeextra
-# Configure Shell Specific Settings
-elif [ $INPUT -eq 5 ]; then
-    # Font Sizes
-    echo 'Setting font preferences...'
-    gsettings set org.gnome.desktop.interface text-scaling-factor '1.0'
-    gsettings set org.gnome.desktop.interface document-font-name 'Cantarell 10'
-    gsettings set org.gnome.desktop.interface font-name 'Cantarell 10'
-    gsettings set org.gnome.nautilus.desktop font 'Cantarell 10'
-    gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Cantarell Bold 10'
-    gsettings set org.gnome.settings-daemon.plugins.xsettings antialiasing 'rgba'
-    gsettings set org.gnome.settings-daemon.plugins.xsettings hinting 'slight'
-    # GNOME Shell Settings
-    echo 'Setting GNOME Shell preferences...'
-    gsettings set org.gnome.shell.overrides button-layout 'close:'
-# Return
-elif [ $INPUT -eq 6 ]; then
-    clear && main
-else
-# Invalid Choice
-    echo 'Not an option, choose again.'
-    gnomeextra
-fi
-done
 }
 
 # INSTALL MULTIMEDIA CODECS
@@ -134,7 +56,7 @@ function devinstall {
 # Install Development Tools
 echo 'Installing development tools...'
 echo 'Requires root privileges:'
-sudo apt-get install -y bzr git glade qtcreator ruby
+sudo apt-get install -y bzr git qtcreator ruby
 echo 'Done.'
 main
 }
@@ -152,7 +74,8 @@ echo '2. Install Google Talk Plugin?'
 echo '3. Install Steam?'
 echo '4. Install Unity Tweak Tool?'
 echo '5. Install DVD playback tools?'
-echo '6. Return'
+echo '6. Install extra tools?'
+echo '7. Return'
 echo ''
 read INPUT
 # Google Chrome
@@ -253,8 +176,17 @@ elif [ $INPUT -eq 5 ]; then
     echo 'Installing libdvdcss2...'
     sudo apt-get install -y libdvdcss2
     echo 'Done.'
-# Return
+# Medibuntu
 elif [ $INPUT -eq 6 ]; then
+    echo 'Installing extra third party tools...'
+    echo 'EasyShutdown...'
+    echo 'Requires root privileges:'
+    wget https://launchpad.net/easyshutdown/trunk/0.6/+download/easyshutdown_0.6_all.deb -O /tmp/easyshutdown_0.6_all.deb
+    sudo dpkg -i /tmp/easyshutdown_0.6_all.deb
+    sudo apt-get -f install
+    echo 'Done.'
+# Return
+elif [ $INPUT -eq 7 ]; then
     clear && main
 else
 # Invalid Choice
@@ -279,22 +211,6 @@ echo ''
 read INPUT
 # GSettings
 if [ $INPUT -eq 1 ]; then
-    # Font Sizes
-    echo 'Setting font preferences...'
-    gsettings set org.gnome.desktop.interface text-scaling-factor '1.0'
-    gsettings set org.gnome.desktop.interface document-font-name 'Ubuntu 9'
-    gsettings set org.gnome.desktop.interface font-name 'Ubuntu 9'
-    gsettings set org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 11'
-    gsettings set org.gnome.nautilus.desktop font 'Ubuntu 9'
-    gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Ubuntu Bold 9'
-    gsettings set org.gnome.settings-daemon.plugins.xsettings antialiasing 'rgba'
-    gsettings set org.gnome.settings-daemon.plugins.xsettings hinting 'slight'
-    # Unity Settings
-    echo 'Setting Unity preferences...'
-    gsettings set com.canonical.Unity.ApplicationsLens display-available-apps false
-    gsettings set com.canonical.unity-greeter draw-user-backgrounds true 
-    gsettings set com.canonical.indicator.power icon-policy 'charge'
-    gsettings set com.canonical.Unity.Lenses remote-content-search 'none'
     # Nautilus Preferences
     echo 'Setting Nautilus preferences...'
     gsettings set org.gnome.nautilus.preferences sort-directories-first true
@@ -310,9 +226,6 @@ if [ $INPUT -eq 1 ]; then
     gsettings set org.gnome.rhythmbox.rhythmdb monitor-library true
     gsettings set org.gnome.rhythmbox.sources browser-views 'artists-albums'
     gsettings set org.gnome.rhythmbox.sources visible-columns '['post-time', 'artist', 'duration', 'genre', 'album']'
-    # Totem Preferences
-    echo 'Setting Totem preferences...'
-    gsettings set org.gnome.totem active-plugins '['save-file', 'media_player_keys', 'screenshot', 'chapters', 'ontop', 'screensaver', 'movie-properties', 'skipto']'
     config
 # Startup Applications
 elif [ $INPUT -eq 2 ]; then
