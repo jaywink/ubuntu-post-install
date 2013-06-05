@@ -27,7 +27,7 @@ function appinstall {
 # Install Favourite Applications
 echo 'Installing selected favourite applications...'
 echo 'Requires root privileges:'
-sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat
+sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat geany geany-plugins terminator nitrotasks digikam keepassx chromium-browser friends calibre unity-mail skype mysql-workbench qbittorrent shutter my-weather-indicator diodon calendar-indicator indicator-multiload hamster-applet hamster-indicator
 echo 'Done.'
 main
 }
@@ -56,7 +56,7 @@ function devinstall {
 # Install Development Tools
 echo 'Installing development tools...'
 echo 'Requires root privileges:'
-sudo apt-get install -y bzr git qtcreator ruby
+sudo apt-get install -y bzr git qtcreator ruby build-essential
 echo 'Done.'
 main
 }
