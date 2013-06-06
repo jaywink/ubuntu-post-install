@@ -22,6 +22,10 @@
 # You should have received a copy of the GNU General Public License along with
 # this program; if not, see <https://www.gnu.org/licenses/gpl-3.0.txt>
 
+### TODO ###################
+# Add startup applications
+############################
+
 echo ''
 echo '#-------------------------------------------#'
 echo '#     Ubuntu 13.04 Post-Install Script      #'
@@ -45,18 +49,41 @@ main
 # INSTALL APPLICATIONS
 function appinstall {
 # Install Favourite Applications
-echo 'Installing selected favourite applications...'
 echo 'Requires root privileges:'
-sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat geany geany-plugins terminator nitrotasks digikam keepassx chromium-browser friends calibre unity-mail skype mysql-workbench qbittorrent shutter my-weather-indicator diodon calendar-indicator indicator-multiload hamster-applet hamster-indicator
+echo 'Adding PPA for: my-weather-indicator, calendar-indicator'
+sudo add-apt-repository -y ppa:atareao/atareao
+echo 'Adding PPA for: nitrotasks'
+sudo add-apt-repository -y ppa:cooperjona/nitrotasks
+echo 'Adding PPA for: qBittorrent'
+sudo add-apt-repository -y ppa:saiarcot895/myppa
+echo 'Adding PPA for: photo'
+sudo add-apt-repository -y ppa:samrog131/ppa
+echo 'Adding PPA for: y-ppa-manager'
+sudo add-apt-repository -y ppa:webupd8team/y-ppa-manager
+sudo apt-get update -qq
+echo 'Installing selected favourite applications...'
+sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator nitrotasks digikam keepassx chromium-browser friends calibre unity-mail skype qbittorrent shutter my-weather-indicator diodon calendar-indicator indicator-multiload hamster-applet hamster-indicator y-ppa-manager photo compizconfig-settings-manager thunderbird vlc wireshark
 echo 'Done.'
 main
 }
 
 # INSTALL SYSTEM TOOLS
 function toolinstall {
-echo 'Installing system tools...'
 echo 'Requires root privileges:'
-sudo apt-get install -y --no-install-recommends ppa-purge
+echo 'Adding PPA for: tlp'
+sudo add-apt-repository -y ppa:linrunner/tlp
+sudo apt-get update -qq
+echo 'Installing system tools...'
+sudo apt-get install -y --no-install-recommends ppa-purge tlp htop
+echo 'Done.'
+main
+}
+
+# INSTALL GAMES
+function gamesinstall {
+echo 'Requires root privileges:'
+echo 'Installing games...'
+sudo apt-get install -y --no-install-recommends gcompris supertuxkart tuxpaint tuxpaint-config
 echo 'Done.'
 main
 }
@@ -90,7 +117,7 @@ read INPUT
 if [ $INPUT -eq 1 ]; then
     echo 'Installing development tools...'
     echo 'Requires root privileges:'
-    sudo apt-get install -y bzr devscripts git glade icontool python3-distutils-extra qtcreator ruby build-essential
+    sudo apt-get install -y bzr devscripts git glade icontool python3-distutils-extra qtcreator ruby build-essential meld geany geany-plugins mysql-workbench
     echo 'Done.'
     devinstall
 # Install Ubuntu SDK
@@ -136,7 +163,6 @@ fi
 done
 }
 
-
 # THIRD PARTY APPLICATIONS
 function thirdparty {
 INPUT=0
@@ -151,7 +177,8 @@ echo '3. Install Steam?'
 echo '4. Install Unity Tweak Tool?'
 echo '5. Install DVD playback tools?'
 echo '6. Install extra tools?'
-echo '7. Return'
+echo '7. Install GetDeb games?'
+echo '8. Return'
 echo ''
 read INPUT
 # Google Chrome
@@ -252,6 +279,7 @@ elif [ $INPUT -eq 5 ]; then
     echo 'Installing libdvdcss2...'
     sudo apt-get install -y libdvdcss2
     echo 'Done.'
+    thirdparty
 # Medibuntu
 elif [ $INPUT -eq 6 ]; then
     echo 'Installing extra third party tools...'
@@ -261,8 +289,21 @@ elif [ $INPUT -eq 6 ]; then
     sudo dpkg -i /tmp/easyshutdown_0.6_all.deb
     sudo apt-get -f install
     echo 'Done.'
-# Return
+    thirdparty
+# GetDeb and some games
 elif [ $INPUT -eq 7 ]; then
+    echo 'Installing GetDeb and some games...'
+    echo 'Adding repository...'
+    echo 'Requires root privileges:'
+    wget http://archive.getdeb.net/install_deb/playdeb_0.3-1~getdeb1_all.deb -O /tmp/playdeb_0.3-1~getdeb1_all.deb
+    sudo dpkg --no-debsig -i /tmp/playdeb_0.3-1~getdeb1_all.deb
+    sudo apt-get update -qq
+    echo 'Install FreeCiv...'
+    sudo apt-get install -y freeciv-client-gtk
+    echo 'Done.'
+    thirdparty
+# Return
+elif [ $INPUT -eq 8 ]; then
     clear && main
 else
 # Invalid Choice
@@ -406,7 +447,7 @@ do
 echo '1. Perform system update & upgrade?'
 echo '2. Install favourite applications?'
 echo '3. Install favourite system tools?'
-echo '4. ---'
+echo '4. Install some games?'
 echo '5. Install development tools?'
 echo '6. Install Ubuntu Restricted Extras?'
 echo '7. Install third-party applications?'
@@ -424,9 +465,9 @@ elif [ $INPUT -eq 2 ]; then
 # Install Favourite Tools
 elif [ $INPUT -eq 3 ]; then
     clear && toolinstall
-# Install GNOME components
-#~ elif [ $INPUT -eq 4 ]; then
-    #~ clear && gnomeextra
+# Install Games
+elif [ $INPUT -eq 4 ]; then
+    clear && gamesinstall
 # Install Dev Tools
 elif [ $INPUT -eq 5 ]; then
     clear && devinstall
