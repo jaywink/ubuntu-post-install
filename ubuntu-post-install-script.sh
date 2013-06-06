@@ -1,13 +1,33 @@
 #!/bin/bash
-
-#----------------------------#
-# UBUNTU POST-INSTALL SCRIPT #
-#----------------------------#
+# -*- Mode: sh; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
+#
+# Authors:
+#   Sam Hewitt <hewittsamuel@gmail.com>
+#	Jason Robinson <jaywink@basshero.org>
+#
+# Description:
+#   A post-installation bash script for Ubuntu (13.04)
+#
+# Legal Stuff:
+#
+# This script is free software; you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation; version 3.
+#
+# This script is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+# details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, see <https://www.gnu.org/licenses/gpl-3.0.txt>
 
 echo ''
 echo '#-------------------------------------------#'
 echo '#     Ubuntu 13.04 Post-Install Script      #'
 echo '#-------------------------------------------#'
+
+#----- FUNCTIONS -----#
 
 # SYSTEM UPGRADE
 function sysupgrade {
@@ -22,7 +42,7 @@ echo 'Done.'
 main
 }
 
-# INSTALL FAVOURITE APPLICATIONS
+# INSTALL APPLICATIONS
 function appinstall {
 # Install Favourite Applications
 echo 'Installing selected favourite applications...'
@@ -32,7 +52,7 @@ echo 'Done.'
 main
 }
 
-# INSTALL FAVOURITE SYSTEM TOOLS
+# INSTALL SYSTEM TOOLS
 function toolinstall {
 echo 'Installing system tools...'
 echo 'Requires root privileges:'
@@ -51,23 +71,79 @@ echo 'Done.'
 main
 }
 
-# INSTALL DEV TOOLS
+# INSTALL DEVELOPMENT TOOLS
 function devinstall {
+INPUT=0
+echo ''
+echo 'What would you like to do? (Enter the number of your choice)'
+echo ''
+while [ true ]
+do
+echo '1. Install development tools?'
+echo '2. Install Ubuntu SDK?'
+echo '3. Install Ubuntu Phablet Tools?'
+echo '4. Install IRC bot tools?'
+echo '5. Return'
+echo ''
+read INPUT
 # Install Development Tools
-echo 'Installing development tools...'
-echo 'Requires root privileges:'
-sudo apt-get install -y bzr git qtcreator ruby build-essential
-echo 'Done.'
-main
+if [ $INPUT -eq 1 ]; then
+    echo 'Installing development tools...'
+    echo 'Requires root privileges:'
+    sudo apt-get install -y bzr devscripts git glade icontool python3-distutils-extra qtcreator ruby build-essential
+    echo 'Done.'
+    devinstall
+# Install Ubuntu SDK
+elif [ $INPUT -eq 2 ]; then
+    echo 'Adding QT5 Edgers PPA to software sources...'
+    echo 'Requires root privileges:'
+    sudo add-apt-repository -y ppa:canonical-qt5-edgers/qt5-proper
+    echo 'Adding Ubuntu SDK Team PPA to software sources...'
+    echo 'Requires root privileges:'
+    sudo add-apt-repository -y ppa:ubuntu-sdk-team/ppa
+    echo 'Updating repository information...'
+    sudo apt-get update -qq
+    echo 'Installing Ubuntu SDK...'
+    sudo apt-get install -y ubuntu-sdk
+    echo 'Done.'
+    devinstall
+# Install Ubuntu Phablet Tools
+elif [ $INPUT -eq 3 ]; then
+    echo 'Adding Phablet Team PPA to software sources...'
+    echo 'Requires root privileges:'
+    sudo add-apt-repository -y ppa:phablet-team/tools
+    echo 'Updating repository information...'
+    sudo apt-get update -qq
+    echo 'Installing Ubuntu SDK...'
+    sudo apt-get install -y phablet-tools
+    echo 'Done.'
+    devinstall
+# Install IRC Bot Tools
+elif [ $INPUT -eq 4 ]; then
+    echo 'Installing IRC bot tools...'
+    echo 'Requires root privileges:'
+    sudo apt-get install -y python-soappy supybot
+    echo 'Done.'
+    devinstall
+# Return
+elif [ $INPUT -eq 5 ]; then
+    clear && main
+else
+# Invalid Choice
+    echo 'Invalid, choose again.'
+    devinstall
+fi
+done
 }
 
-# EXTRA INSTALLATION
+
+# THIRD PARTY APPLICATIONS
 function thirdparty {
 INPUT=0
 echo ''
 echo 'What would you like to do? (Enter the number of your choice)'
 echo ''
-while [ $INPUT != 1 ] && [ $INPUT != 2 ] && [ $INPUT != 3 ]
+while [ true ]
 do
 echo '1. Install Google Chrome (Unstable)?'
 echo '2. Install Google Talk Plugin?'
@@ -82,7 +158,7 @@ read INPUT
 if [ $INPUT -eq 1 ]; then
     echo 'Downloading Google Chrome (Unstable)...'
     # Make tmp directory
-    if [ -e $HOME/tmp ]; then
+    if [ ! -d $HOME/tmp ]; then
         mkdir -p $HOME/tmp
     else
         continue
@@ -90,9 +166,9 @@ if [ $INPUT -eq 1 ]; then
     cd $HOME/tmp
     # Download Debian file that matches system architecture
     if [ $(uname -i) = 'i386' ]; then
-        wget https://dl.google.com/linux/direct/google-chrome-unstable_current_i386.deb
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb
     elif [ $(uname -i) = 'x86_64' ]; then
-        wget https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     fi
     # Install the package
     echo 'Installing Google Chrome...'
@@ -107,7 +183,7 @@ if [ $INPUT -eq 1 ]; then
 elif [ $INPUT -eq 2 ]; then
     echo 'Downloading Google Talk Plugin...'
     # Make tmp directory
-    if [ -e $HOME/tmp ]; then
+    if [ ! -d $HOME/tmp ]; then
         mkdir -p $HOME/tmp
     else
         continue
@@ -132,7 +208,7 @@ elif [ $INPUT -eq 2 ]; then
 elif [ $INPUT -eq 3 ]; then
     echo 'Downloading Steam...'
     # Make tmp directory
-    if [ -e $HOME/tmp ]; then
+    if [ ! -d $HOME/tmp ]; then
         mkdir -p $HOME/tmp
     else
         continue
@@ -158,7 +234,7 @@ elif [ $INPUT -eq 4 ]; then
     # Add repository
     echo 'Adding Unity Tweak Tool repository to sources...'
     echo 'Requires root privileges:'
-    sudo add-apt-repository ppa:freyja-dev/unity-tweak-tool-daily
+    sudo add-apt-repository -y ppa:freyja-dev/unity-tweak-tool-daily
     # Update Repository Information
     echo 'Updating repository information...'
     sudo apt-get update -qq
@@ -190,7 +266,7 @@ elif [ $INPUT -eq 7 ]; then
     clear && main
 else
 # Invalid Choice
-    echo 'Not an option, choose again.'
+    echo 'Invalid, choose again.'
     thirdparty
 fi
 done
@@ -202,7 +278,7 @@ INPUT=0
 echo ''
 echo 'What would you like to do? (Enter the number of your choice)'
 echo ''
-while [ $INPUT != 1 ] && [ $INPUT != 2 ] && [ $INPUT != 3 ]
+while [ true ]
 do
 echo '1. Set preferred application-specific settings?'
 echo '2. Show all startup applications?'
@@ -240,7 +316,7 @@ elif [ $INPUT -eq 3 ]; then
     clear && main
 else
 # Invalid Choice
-    echo 'Not an option, choose again.'
+    echo 'Invalid, choose again.'
     config
 fi
 done
@@ -252,13 +328,13 @@ INPUT=0
 echo ''
 echo 'What would you like to do? (Enter the number of your choice)'
 echo ''
-while [ $INPUT != 1 ] && [ $INPUT != 2 ] && [ $INPUT != 3 ]
+while [ true ]
 do
 echo ''
 echo '1. Remove unused pre-installed packages?'
 echo '2. Remove old kernel(s)?'
 echo '3. Remove orphaned packages?'
-echo '4. Remove residual config files?'
+echo '4. Remove leftover configuration files?'
 echo '5. Clean package cache?'
 echo '6. Return?'
 echo ''
@@ -267,7 +343,7 @@ read INPUT
 if [ $INPUT -eq 1 ]; then
     echo 'Removing selected pre-installed applications...'
     echo 'Requires root privileges:'
-    sudo apt-get purge
+    sudo apt-get purge 
     echo 'Done.'
     cleanup
 # Remove Old Kernel
@@ -286,7 +362,7 @@ elif [ $INPUT -eq 3 ]; then
     cleanup
 # Remove residual config files?
 elif [ $INPUT -eq 4 ]; then
-    echo 'Removing residual config files...'
+    echo 'Removing leftover configuration files...'
     echo 'Requires root privileges:'
     sudo dpkg --purge $(COLUMNS=200 dpkg -l | grep '^rc' | tr -s ' ' | cut -d ' ' -f 2)
     echo 'Done.'
@@ -302,7 +378,7 @@ elif [ $INPUT -eq 6 ]; then
     clear && main
 else
 # Invalid Choice
-    echo 'Not an option, choose again.'
+    echo 'Invalid, choose again.'
     cleanup
 fi
 done
@@ -311,7 +387,7 @@ done
 # END
 function end {
 echo ''
-read -p 'Are you sure you want to quit? (Y/n) '
+read -p 'Are you sure you want to quit? (Y)es/(n)o '
 if [ '$REPLY' == 'n' ]; then
     clear && main
 else
@@ -319,18 +395,18 @@ else
 fi
 }
 
-# MAIN FUNCTION
+#----- MAIN FUNCTION -----#
 function main {
 INPUT=0
 echo ''
 echo 'What would you like to do? (Enter the number of your choice)'
 echo ''
-while [ $INPUT != 1 ] && [ $INPUT != 2 ] && [ $INPUT != 3 ]
+while [ true ]
 do
 echo '1. Perform system update & upgrade?'
 echo '2. Install favourite applications?'
 echo '3. Install favourite system tools?'
-echo '4. Install extra GNOME components?'
+echo '4. ---'
 echo '5. Install development tools?'
 echo '6. Install Ubuntu Restricted Extras?'
 echo '7. Install third-party applications?'
@@ -349,8 +425,8 @@ elif [ $INPUT -eq 2 ]; then
 elif [ $INPUT -eq 3 ]; then
     clear && toolinstall
 # Install GNOME components
-elif [ $INPUT -eq 4 ]; then
-    clear && gnomeextra
+#~ elif [ $INPUT -eq 4 ]; then
+    #~ clear && gnomeextra
 # Install Dev Tools
 elif [ $INPUT -eq 5 ]; then
     clear && devinstall
@@ -371,15 +447,13 @@ elif [ $INPUT -eq 10 ]; then
     end
 else
 # Invalid Choice
-    echo 'Not an option, choose again.'
+    echo 'Invalid, choose again.'
     main
 fi
 done
 }
 
-# CALL MAIN FUNCTION
+#----- RUN MAIN FUNCTION -----#
 main
 
-#-----------------------------------#
-# END OF UBUNTU POST-INSTALL SCRIPT #
-#-----------------------------------#
+#END
