@@ -60,9 +60,15 @@ echo 'Adding PPA for: photo'
 sudo add-apt-repository -y ppa:samrog131/ppa
 echo 'Adding PPA for: y-ppa-manager'
 sudo add-apt-repository -y ppa:webupd8team/y-ppa-manager
+echo 'Adding webupd8 PPA'
+sudo add-apt-repository -y ppa:nilarimogard/webupd8
+echo 'Adding PPA for: GIMP'
+sudo add-apt-repository -y ppa:otto-kesselgulasch/gimp
+echo 'Adding PPA for: Ubuntu Tweak'
+sudo add-apt-repository -y ppa:tualatrix/ppa
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
-sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator nitrotasks digikam keepassx chromium-browser friends calibre unity-mail skype qbittorrent shutter my-weather-indicator diodon calendar-indicator indicator-multiload hamster-applet hamster-indicator y-ppa-manager photo compizconfig-settings-manager thunderbird vlc wireshark
+sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator nitrotasks digikam keepassx chromium-browser friends calibre unity-mail skype qbittorrent shutter my-weather-indicator diodon calendar-indicator indicator-multiload hamster-applet hamster-indicator y-ppa-manager photo compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak
 echo 'Done.'
 main
 }
