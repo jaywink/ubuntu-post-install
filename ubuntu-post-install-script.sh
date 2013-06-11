@@ -36,8 +36,13 @@ echo '#-------------------------------------------#'
 # SYSTEM UPGRADE
 function sysupgrade {
 # Update Repository Information
-echo 'Updating repository information...'
 echo 'Requires root privileges:'
+if [ `cat /etc/apt/sources.list | grep raring-proposed -c` -eq 0 ]; then
+    echo 'Adding proposed repository'
+    SOURCELINE=( `cat /etc/apt/sources.list | grep archive.ubuntu.com -m 1` )
+    sudo add-apt-repository -y "deb ${SOURCELINE[1]} $(lsb_release -sc)-proposed restricted main universe multiverse"
+fi
+echo 'Updating repository information...'
 sudo apt-get update -qq
 # Dist-Upgrade
 echo 'Performing system upgrade...'
