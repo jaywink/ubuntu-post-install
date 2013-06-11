@@ -115,8 +115,11 @@ echo ''
 read INPUT
 # Install Development Tools
 if [ $INPUT -eq 1 ]; then
-    echo 'Installing development tools...'
     echo 'Requires root privileges:'
+    echo 'Adding PPA for: geany'
+    sudo add-apt-repository -y ppa:geany-dev/ppa
+    sudo apt-get update -qq
+    echo 'Installing development tools...'
     sudo apt-get install -y bzr devscripts git glade icontool python3-distutils-extra qtcreator ruby build-essential meld geany geany-plugins mysql-workbench
     echo 'Done.'
     devinstall
