@@ -37,11 +37,6 @@ echo '#-------------------------------------------#'
 function sysupgrade {
 # Update Repository Information
 echo 'Requires root privileges:'
-if [ `cat /etc/apt/sources.list | grep raring-proposed -c` -eq 0 ]; then
-    echo 'Adding proposed repository'
-    SOURCELINE=( `cat /etc/apt/sources.list | grep archive.ubuntu.com -m 1` )
-    sudo add-apt-repository -y "deb ${SOURCELINE[1]} $(lsb_release -sc)-proposed restricted main universe multiverse"
-fi
 echo 'Updating repository information...'
 sudo apt-get update -qq
 # Dist-Upgrade
@@ -49,6 +44,24 @@ echo 'Performing system upgrade...'
 sudo apt-get dist-upgrade -y
 echo 'Done.'
 main
+}
+
+# PROPOSED
+function addproposed {
+# Add Proposed repository
+echo 'Requires root privileges:'
+echo 'Adding proposed repository - are you sure (y to accept)? Things could break...'
+read REPLY
+if [ '$REPLY' == 'y' ]; then
+    if [ `cat /etc/apt/sources.list | grep raring-proposed -c` -eq 0 ]; then
+        echo 'Adding proposed repository'
+        SOURCELINE=( `cat /etc/apt/sources.list | grep archive.ubuntu.com -m 1` )
+        sudo add-apt-repository -y "deb ${SOURCELINE[1]} $(lsb_release -sc)-proposed restricted main universe multiverse"
+    fi
+    sysupgrade
+else
+    clear && main
+fi
 }
 
 # INSTALL APPLICATIONS
@@ -458,6 +471,7 @@ echo 'What would you like to do? (Enter the number of your choice)'
 echo ''
 while [ true ]
 do
+echo '0. Add proposed repository?'
 echo '1. Perform system update & upgrade?'
 echo '2. Install favourite applications?'
 echo '3. Install favourite system tools?'
@@ -471,7 +485,10 @@ echo '10. Quit?'
 echo ''
 read INPUT
 # System Upgrade
-if [ $INPUT -eq 1 ]; then
+if [ $INPUT -eq 0 ]; then
+    clear && addproposed
+# System Upgrade
+elif [ $INPUT -eq 1 ]; then
     clear && sysupgrade
 # Install Favourite Applications
 elif [ $INPUT -eq 2 ]; then
