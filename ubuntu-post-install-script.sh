@@ -205,7 +205,8 @@ echo '4. Install Unity Tweak Tool?'
 echo '5. Install DVD playback tools?'
 echo '6. Install EasyShutdown?'
 echo '7. Install GetDeb games?'
-echo '8. Return'
+echo '8. Install Great Little Radio Player?'
+echo '0. Return'
 echo ''
 read INPUT
 # Google Chrome
@@ -313,6 +314,7 @@ elif [ $INPUT -eq 6 ]; then
     echo 'Requires root privileges:'
     wget https://launchpad.net/easyshutdown/trunk/0.6/+download/easyshutdown_0.6_all.deb -O /tmp/easyshutdown_0.6_all.deb
     sudo dpkg -i /tmp/easyshutdown_0.6_all.deb
+    rm -f /tmp/easyshutdown_0.6_all.deb
     sudo apt-get -f install
     echo 'Done.'
     thirdparty
@@ -323,13 +325,23 @@ elif [ $INPUT -eq 7 ]; then
     echo 'Requires root privileges:'
     wget http://archive.getdeb.net/install_deb/playdeb_0.3-1~getdeb1_all.deb -O /tmp/playdeb_0.3-1~getdeb1_all.deb
     sudo dpkg --no-debsig -i /tmp/playdeb_0.3-1~getdeb1_all.deb
+    rm -f /tmp/playdeb_0.3-1~getdeb1_all.deb
     sudo apt-get update -qq
     echo 'Install FreeCiv...'
     sudo apt-get install -y freeciv-client-gtk
     echo 'Done.'
     thirdparty
-# Return
+# Great Little Radio Player
 elif [ $INPUT -eq 8 ]; then
+    echo 'Installing Great Little Radio Player...'
+    echo 'Requires root privileges:'
+    wget http://ubuntuone.com/07PaN5spFvXSMt3bhqY6us -O /tmp/greatlittleradioplayer_1.4.2_amd64.deb
+    sudo dpkg -i /tmp/greatlittleradioplayer_1.4.2_amd64.deb
+    rm -f /tmp/greatlittleradioplayer_1.4.2_amd64.deb
+    echo 'Done.'
+    thirdparty
+# Return
+elif [ $INPUT -eq 0 ]; then
     clear && main
 else
 # Invalid Choice
