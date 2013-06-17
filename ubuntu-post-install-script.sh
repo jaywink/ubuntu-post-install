@@ -203,7 +203,7 @@ echo '2. Install Google Talk Plugin?'
 echo '3. Install Steam?'
 echo '4. Install Unity Tweak Tool?'
 echo '5. Install DVD playback tools?'
-echo '6. Install extra tools?'
+echo '6. Install EasyShutdown?'
 echo '7. Install GetDeb games?'
 echo '8. Return'
 echo ''
@@ -307,10 +307,9 @@ elif [ $INPUT -eq 5 ]; then
     sudo apt-get install -y libdvdcss2
     echo 'Done.'
     thirdparty
-# Medibuntu
+# EasyShutdown
 elif [ $INPUT -eq 6 ]; then
-    echo 'Installing extra third party tools...'
-    echo 'EasyShutdown...'
+    echo 'Installing EasyShutdown...'
     echo 'Requires root privileges:'
     wget https://launchpad.net/easyshutdown/trunk/0.6/+download/easyshutdown_0.6_all.deb -O /tmp/easyshutdown_0.6_all.deb
     sudo dpkg -i /tmp/easyshutdown_0.6_all.deb
