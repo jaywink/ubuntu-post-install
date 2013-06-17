@@ -388,6 +388,25 @@ elif [ $INPUT -eq 2 ]; then
     echo 'Requires root privileges:'    
     cd /etc/xdg/autostart/ && sudo sed --in-place 's/NoDisplay=true/NoDisplay=false/g' *.desktop
     cd
+    echo 'Make some installed apps startup automatically.'
+    echo 'Calendar Indicator...'
+    [ -e /usr/share/calendar-indicator/calendar-indicator-autostart.desktop ] && [ -e ~/.config/autostart/calendar-indicator-autostart.desktop ] || ln -s /usr/share/calendar-indicator/calendar-indicator-autostart.desktop ~/.config/autostart/calendar-indicator-autostart.desktop
+    echo 'Dropbox...'
+    [ -e /usr/share/applications/dropbox.desktop ] && [ -e ~/.config/autostart/dropbox.desktop ] || ln -s /usr/share/applications/dropbox.desktop ~/.config/autostart/dropbox.desktop
+    echo 'Empathy...'
+    [ -e /usr/share/applications/empathy.desktop ] && [ -e ~/.config/autostart/empathy.desktop ] || ln -s /usr/share/applications/empathy.desktop ~/.config/autostart/empathy.desktop
+    echo 'Hamster Indicator...'
+    [ -e /usr/share/applications/hamster-indicator.desktop ] && [ -e ~/.config/autostart/hamster-indicator.desktop ] || ln -s /usr/share/applications/hamster-indicator.desktop ~/.config/autostart/hamster-indicator.desktop
+    echo 'Indicator Multiload...'
+    [ -e /usr/share/applications/indicator-multiload.desktop ] && [ -e ~/.config/autostart/indicator-multiload.desktop ] || ln -s /usr/share/applications/indicator-multiload.desktop ~/.config/autostart/indicator-multiload.desktop
+    echo 'My Weather Indicator...'
+    [ -e /opt/extras.ubuntu.com/my-weather-indicator/share/my-weather-indicator/my-weather-indicator-autostart.desktop ] && [ -e ~/.config/autostart/my-weather-indicator-autostart.desktop ] || ln -s /opt/extras.ubuntu.com/my-weather-indicator/share/my-weather-indicator/my-weather-indicator-autostart.desktop ~/.config/autostart/my-weather-indicator-autostart.desktop
+    echo 'qBittorrent...'
+    [ -e /usr/share/applications/qBittorrent.desktop ] && [ -e ~/.config/autostart/qbittorrent.desktop ] || ln -s /usr/share/applications/qBittorrent.desktop ~/.config/autostart/qbittorrent.desktop
+    echo 'Shutter...'
+    [ -e /usr/share/applications/shutter.desktop ] && [ -e ~/.config/autostart/shutter.desktop ] || ln -s /usr/share/applications/shutter.desktop ~/.config/autostart/shutter.desktop
+    echo 'Unity Mail...'
+    [ -e /usr/share/unity-mail/unity-mail-autostart.desktop ] && [ -e ~/.config/autostart/unity-mail-autostart.desktop ] || ln -s /usr/share/unity-mail/unity-mail-autostart.desktop ~/.config/autostart/unity-mail-autostart.desktop
     echo 'Done.'
     config
 # Return
