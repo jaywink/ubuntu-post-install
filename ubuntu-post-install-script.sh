@@ -84,6 +84,8 @@ echo 'Adding PPA for: GIMP'
 sudo add-apt-repository -y ppa:otto-kesselgulasch/gimp
 echo 'Adding PPA for: Ubuntu Tweak'
 sudo add-apt-repository -y ppa:tualatrix/ppa
+echo 'Adding PPA for: Diodon'
+sudo add-apt-repository -y ppa:diodon-team/stable 
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
 sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator nitrotasks digikam keepassx chromium-browser friends calibre unity-mail skype qbittorrent shutter my-weather-indicator diodon calendar-indicator indicator-multiload hamster-applet hamster-indicator y-ppa-manager photo compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak
