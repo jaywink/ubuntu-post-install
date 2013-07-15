@@ -82,7 +82,7 @@ echo 'Adding PPA for: Diodon'
 sudo add-apt-repository -y ppa:diodon-team/stable 
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
-sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser friends calibre unity-mail skype qbittorrent shutter my-weather-indicator diodon calendar-indicator indicator-multiload hamster-applet hamster-indicator y-ppa-manager photo compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak
+sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser friends calibre unity-mail qbittorrent shutter my-weather-indicator diodon calendar-indicator indicator-multiload hamster-applet hamster-indicator y-ppa-manager photo compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak
 echo 'Done.'
 main
 }
