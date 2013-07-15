@@ -66,8 +66,6 @@ function appinstall {
 echo 'Requires root privileges:'
 echo 'Adding PPA for: my-weather-indicator, calendar-indicator'
 sudo add-apt-repository -y ppa:atareao/atareao
-echo 'Adding PPA for: nitrotasks'
-sudo add-apt-repository -y ppa:cooperjona/nitrotasks
 echo 'Adding PPA for: qBittorrent'
 sudo add-apt-repository -y ppa:saiarcot895/myppa
 echo 'Adding PPA for: photo'
@@ -84,7 +82,7 @@ echo 'Adding PPA for: Diodon'
 sudo add-apt-repository -y ppa:diodon-team/stable 
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
-sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator nitrotasks digikam keepassx chromium-browser friends calibre unity-mail skype qbittorrent shutter my-weather-indicator diodon calendar-indicator indicator-multiload hamster-applet hamster-indicator y-ppa-manager photo compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak
+sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser friends calibre unity-mail skype qbittorrent shutter my-weather-indicator diodon calendar-indicator indicator-multiload hamster-applet hamster-indicator y-ppa-manager photo compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak
 echo 'Done.'
 main
 }
