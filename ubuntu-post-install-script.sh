@@ -22,10 +22,6 @@
 # You should have received a copy of the GNU General Public License along with
 # this program; if not, see <https://www.gnu.org/licenses/gpl-3.0.txt>
 
-### TODO ###################
-# Add startup applications
-############################
-
 echo ''
 echo '#-------------------------------------------#'
 echo '#     Ubuntu 13.04 Post-Install Script      #'
@@ -208,6 +204,7 @@ echo '5. Install DVD playback tools?'
 echo '6. Install EasyShutdown?'
 echo '7. Install GetDeb games?'
 echo '8. Install Great Little Radio Player?'
+echo '9. Install Sublime Text?'
 echo '0. Return'
 echo ''
 read INPUT
@@ -340,6 +337,16 @@ elif [ $INPUT -eq 8 ]; then
     wget http://ubuntuone.com/07PaN5spFvXSMt3bhqY6us -O /tmp/greatlittleradioplayer_1.4.2_amd64.deb
     sudo dpkg -i /tmp/greatlittleradioplayer_1.4.2_amd64.deb
     rm -f /tmp/greatlittleradioplayer_1.4.2_amd64.deb
+    echo 'Done.'
+    thirdparty
+# Sublime Text
+elif [ $INPUT -eq 9 ]; then
+    echo 'Installing Sublime Text...'
+    echo 'Requires root privileges:'
+    wget http://c758482.r82.cf2.rackcdn.com/sublime-text_build-3047_amd64.deb -O /tmp/sublime-text_build-3047_amd64.deb
+    sudo dpkg -i /tmp/sublime-text_build-3047_amd64.deb
+    rm -f /tmp/sublime-text_build-3047_amd64.deb
+    cp "configs/Default (Linux).sublime-keymap" "$HOME/.config/sublime-text-3/Packages/User/"
     echo 'Done.'
     thirdparty
 # Return

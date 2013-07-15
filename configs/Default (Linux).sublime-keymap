@@ -1,0 +1,6 @@
+[
+	{ "keys": ["ctrl+e"], "command": "toggle_comment", "args": { "block": false } },
+	{ "keys": ["ctrl+shift+e"], "command": "toggle_comment", "args": { "block": true } },
+	{ "keys": ["ctrl+k"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Delete Line.sublime-macro"} },
+    { "keys": ["f3"], "command": "prompt_open_file" },
+]
