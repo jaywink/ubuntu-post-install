@@ -345,6 +345,7 @@ elif [ $INPUT -eq 9 ]; then
     sudo dpkg -i /tmp/sublime-text_build-3047_amd64.deb
     rm -f /tmp/sublime-text_build-3047_amd64.deb
     cp "configs/Default (Linux).sublime-keymap" "$HOME/.config/sublime-text-3/Packages/User/"
+    cp "configs/Preferences.sublime-settings" "$HOME/.config/sublime-text-3/Packages/User/"
     echo 'Done.'
     thirdparty
 # Return
