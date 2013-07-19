@@ -68,8 +68,6 @@ echo 'Adding PPA for: my-weather-indicator, calendar-indicator'
 sudo add-apt-repository -y ppa:atareao/atareao
 echo 'Adding PPA for: qBittorrent'
 sudo add-apt-repository -y ppa:saiarcot895/myppa
-echo 'Adding PPA for: photo'
-sudo add-apt-repository -y ppa:samrog131/ppa
 echo 'Adding PPA for: y-ppa-manager'
 sudo add-apt-repository -y ppa:webupd8team/y-ppa-manager
 echo 'Adding webupd8 PPA'
@@ -82,7 +80,7 @@ echo 'Adding PPA for: Diodon'
 sudo add-apt-repository -y ppa:diodon-team/stable 
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
-sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser friends calibre unity-mail qbittorrent shutter my-weather-indicator diodon calendar-indicator indicator-multiload hamster-applet hamster-indicator y-ppa-manager photo compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak
+sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser friends calibre unity-mail qbittorrent shutter my-weather-indicator diodon calendar-indicator indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak
 echo 'Done.'
 main
 }
