@@ -138,9 +138,11 @@ if [ $INPUT -eq 1 ]; then
     echo 'Requires root privileges:'
     echo 'Adding PPA for: geany'
     sudo add-apt-repository -y ppa:geany-dev/ppa
+    echo 'Adding PPA for: Node.js'
+    sudo add-apt-repository -y ppa:chris-lea/node.js
     sudo apt-get update -qq
     echo 'Installing development tools...'
-    sudo apt-get install -y bzr devscripts git glade icontool python3-distutils-extra qtcreator ruby build-essential meld geany geany-plugins mysql-workbench
+    sudo apt-get install -y bzr devscripts git glade icontool python3-distutils-extra qtcreator ruby build-essential meld geany geany-plugins mysql-workbench nodejs
     echo 'Done.'
     devinstall
 # Install Ubuntu SDK
