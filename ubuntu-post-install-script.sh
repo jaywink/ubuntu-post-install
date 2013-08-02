@@ -348,6 +348,14 @@ elif [ $INPUT -eq 9 ]; then
     rm -f /tmp/sublime-text_build-3047_amd64.deb
     cp "configs/Default (Linux).sublime-keymap" "$HOME/.config/sublime-text-3/Packages/User/"
     cp "configs/Preferences.sublime-settings" "$HOME/.config/sublime-text-3/Packages/User/"
+    # install package manager from git
+    cd $HOME/.config/sublime-text-3/Packages
+    git clone https://github.com/wbond/sublime_package_control.git "Package Control"
+    cd "Package Control"
+    git checkout python3
+    # install indentxml plugin
+    cd $HOME/.config/sublime-text-3/Packages
+    git clone https://github.com/alek-sys/sublimetext_indentxml.git indentxml
     echo 'Done.'
     thirdparty
 # Return
