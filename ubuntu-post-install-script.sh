@@ -64,7 +64,7 @@ fi
 function appinstall {
 # Install Favourite Applications
 echo 'Requires root privileges:'
-echo 'Adding PPA for: my-weather-indicator, calendar-indicator'
+echo 'Adding PPA for: my-weather-indicator'
 sudo add-apt-repository -y ppa:atareao/atareao
 echo 'Adding PPA for: qBittorrent'
 sudo add-apt-repository -y ppa:saiarcot895/myppa
@@ -82,7 +82,7 @@ echo 'Adding PPA for: Variety'
 sudo add-apt-repository -y ppa:peterlevi/ppa
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
-sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser friends calibre unity-mail qbittorrent shutter my-weather-indicator diodon calendar-indicator indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak variety
+sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser friends calibre unity-mail qbittorrent shutter my-weather-indicator diodon indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak variety
 echo 'Done.'
 main
 }
@@ -407,8 +407,6 @@ elif [ $INPUT -eq 2 ]; then
     cd /etc/xdg/autostart/ && sudo sed --in-place 's/NoDisplay=true/NoDisplay=false/g' *.desktop
     cd
     echo 'Make some installed apps startup automatically.'
-    echo 'Calendar Indicator...'
-    [ -e /usr/share/calendar-indicator/calendar-indicator-autostart.desktop ] && [ -e ~/.config/autostart/calendar-indicator-autostart.desktop ] || ln -s /usr/share/calendar-indicator/calendar-indicator-autostart.desktop ~/.config/autostart/calendar-indicator-autostart.desktop
     echo 'Dropbox...'
     [ -e /usr/share/applications/dropbox.desktop ] && [ -e ~/.config/autostart/dropbox.desktop ] || ln -s /usr/share/applications/dropbox.desktop ~/.config/autostart/dropbox.desktop
     echo 'Empathy...'
