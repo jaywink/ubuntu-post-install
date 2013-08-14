@@ -82,7 +82,8 @@ echo 'Adding PPA for: Variety'
 sudo add-apt-repository -y ppa:peterlevi/ppa
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
-sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser friends calibre unity-mail qbittorrent shutter my-weather-indicator diodon indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak variety
+# libnet-dbus-glib-perl required by shutter + ubuntu one integration
+sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser friends calibre unity-mail qbittorrent shutter libnet-dbus-glib-perl my-weather-indicator diodon indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak variety
 echo 'Done.'
 main
 }
