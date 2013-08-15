@@ -115,6 +115,7 @@ function config {
     while [ true ]
     do
     echo '1. Set timezone on device?'
+    echo '2. Set .bashrc stuff?'
     echo '10. Return'
     echo ''
     read INPUT
@@ -124,6 +125,12 @@ function config {
         read timezone
         ssh phablet@localhost -tp 8888 "echo \"$timezone\" | sudo tee /etc/timezone"
         ssh phablet@localhost -tp 8888 "sudo dpkg-reconfigure --frontend noninteractive tzdata"
+        echo 'Done.'
+        config
+    # .bashrc
+    elif [ $INPUT -eq 2 ]; then
+        echo 'Setting some .bashrc stuff'
+        ssh phablet@localhost -tp 8888 "echo \"alias supd='sudo apt-get update && sudo apt-get dist-upgrade'\" >> .bashrc"
         echo 'Done.'
         config
     # Return
