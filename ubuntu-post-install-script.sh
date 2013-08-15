@@ -400,6 +400,13 @@ if [ $INPUT -eq 1 ]; then
     gsettings set org.gnome.rhythmbox.rhythmdb monitor-library true
     gsettings set org.gnome.rhythmbox.sources browser-views 'artists-albums'
     gsettings set org.gnome.rhythmbox.sources visible-columns '['post-time', 'artist', 'duration', 'genre', 'album']'
+    # Git
+    echo 'Setting git settings...'
+    git config --global push.default current
+    git config --global user.name Jason Robinson
+    git config --global user.email jaywink@basshero.org
+    git config --global alias.hist "rev-list --graph --oneline HEAD --"
+    git config --global alias.fixup "commit -a --amend --no-edit"
     config
 # Startup Applications
 elif [ $INPUT -eq 2 ]; then
