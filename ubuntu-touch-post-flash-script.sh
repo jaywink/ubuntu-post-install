@@ -93,6 +93,18 @@ function collectionappinstall {
     main
 }
 
+# GENERIC APPLICATIONS
+function genericappinstall {
+    adb forward tcp:8888 tcp:22
+    # Install applications
+    echo 'Requires root privileges:'
+    echo 'Adding PPA for core apps'
+    echo 'Installing some generic apps...'
+    ssh phablet@localhost -tp 8888 'sudo apt-get install -y --no-install-recommends vim'
+    echo 'Done.'
+    main
+}
+
 # CONFIG
 function config {
     adb forward tcp:8888 tcp:22
@@ -150,6 +162,7 @@ function main {
     echo '2. Perform system update & upgrade?'
     echo '3. Install core applications?'
     echo '4. Install collection applications?'
+    echo '5. Install generic applications?'
     echo '8. Configure system?'
     echo '10. Quit?'
     echo ''
@@ -166,6 +179,9 @@ function main {
     # Install Collection Applications
     elif [ $INPUT -eq 4 ]; then
         clear && collectionappinstall
+    # Install generic applications
+    elif [ $INPUT -eq 5 ]; then
+        clear && genericappinstall
     # Configure System
     elif [ $INPUT -eq 8 ]; then
         clear && config
