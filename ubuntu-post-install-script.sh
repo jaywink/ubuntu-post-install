@@ -143,7 +143,7 @@ if [ $INPUT -eq 1 ]; then
     sudo add-apt-repository -y ppa:chris-lea/node.js
     sudo apt-get update -qq
     echo 'Installing development tools...'
-    sudo apt-get install -y bzr devscripts git glade icontool python3-distutils-extra qtcreator ruby build-essential meld geany geany-plugins mysql-workbench nodejs ipython ipython-doc
+    sudo apt-get install -y bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld geany geany-plugins mysql-workbench nodejs ipython ipython-doc
     echo 'Done.'
     devinstall
 # Install Ubuntu SDK
