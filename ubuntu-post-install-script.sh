@@ -83,7 +83,7 @@ sudo add-apt-repository -y ppa:peterlevi/ppa
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
 # libnet-dbus-glib-perl required by shutter + ubuntu one integration
-sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser friends calibre unity-mail qbittorrent shutter libnet-dbus-glib-perl my-weather-indicator diodon indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak variety
+sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser friends calibre qbittorrent shutter libnet-dbus-glib-perl my-weather-indicator diodon indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak variety
 echo 'Done.'
 main
 }
@@ -429,8 +429,6 @@ elif [ $INPUT -eq 2 ]; then
     [ -e /usr/share/applications/qBittorrent.desktop ] && [ -e ~/.config/autostart/qbittorrent.desktop ] || ln -s /usr/share/applications/qBittorrent.desktop ~/.config/autostart/qbittorrent.desktop
     echo 'Shutter...'
     [ -e /usr/share/applications/shutter.desktop ] && [ -e ~/.config/autostart/shutter.desktop ] || ln -s /usr/share/applications/shutter.desktop ~/.config/autostart/shutter.desktop
-    echo 'Unity Mail...'
-    [ -e /usr/share/unity-mail/unity-mail-autostart.desktop ] && [ -e ~/.config/autostart/unity-mail-autostart.desktop ] || ln -s /usr/share/unity-mail/unity-mail-autostart.desktop ~/.config/autostart/unity-mail-autostart.desktop
     echo 'Done.'
     config
 # Return
