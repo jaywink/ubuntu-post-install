@@ -407,6 +407,7 @@ if [ $INPUT -eq 1 ]; then
     git config --global user.email jaywink@basshero.org
     git config --global alias.hist "rev-list --graph --oneline HEAD --"
     git config --global alias.fixup "commit -a --amend --no-edit"
+    git config --global push.default current
     config
 # Startup Applications
 elif [ $INPUT -eq 2 ]; then
