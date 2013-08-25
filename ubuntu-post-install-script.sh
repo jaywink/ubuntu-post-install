@@ -83,7 +83,7 @@ sudo add-apt-repository -y ppa:peterlevi/ppa
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
 # libnet-dbus-glib-perl required by shutter + ubuntu one integration
-sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser friends calibre qbittorrent shutter libnet-dbus-glib-perl my-weather-indicator diodon indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak variety
+sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser friends calibre qbittorrent shutter libnet-dbus-glib-perl my-weather-indicator diodon indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak variety pidgin pidgin-plugin-pack
 echo 'Done.'
 main
 }
@@ -403,6 +403,10 @@ if [ $INPUT -eq 1 ]; then
     git config --global alias.hist "rev-list --graph --oneline HEAD --"
     git config --global alias.fixup "commit -a --amend --no-edit"
     git config --global push.default current
+    # Pidgin configuration
+    echo "Setting Pidgin settings..."
+    #quieten signon notifs
+    sed --in-place "s|<pref name='signon' type='bool' value='1'/>|<pref name='signon' type='bool' value='0'/>|" ~/.purple/prefs.xml
     config
 # Startup Applications
 elif [ $INPUT -eq 2 ]; then
