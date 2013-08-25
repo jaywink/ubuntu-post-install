@@ -379,7 +379,7 @@ echo ''
 while [ true ]
 do
 echo '1. Set preferred application-specific settings?'
-echo '2. Show all startup applications?'
+echo '2. Set auto start of applications?'
 echo '3. Return'
 echo ''
 read INPUT
@@ -395,11 +395,6 @@ if [ $INPUT -eq 1 ]; then
     gsettings set org.gnome.gedit.preferences.editor auto-save true
     gsettings set org.gnome.gedit.preferences.editor insert-spaces true
     gsettings set org.gnome.gedit.preferences.editor tabs-size 4
-    # Rhythmbox Preferences
-    echo 'Setting Rhythmbox preferences...'
-    gsettings set org.gnome.rhythmbox.rhythmdb monitor-library true
-    gsettings set org.gnome.rhythmbox.sources browser-views 'artists-albums'
-    gsettings set org.gnome.rhythmbox.sources visible-columns '['post-time', 'artist', 'duration', 'genre', 'album']'
     # Git
     echo 'Setting git settings...'
     git config --global push.default current
