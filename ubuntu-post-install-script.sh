@@ -418,8 +418,8 @@ elif [ $INPUT -eq 2 ]; then
     echo 'Make some installed apps startup automatically.'
     echo 'Dropbox...'
     [ -e /usr/share/applications/dropbox.desktop ] && [ -e ~/.config/autostart/dropbox.desktop ] || ln -s /usr/share/applications/dropbox.desktop ~/.config/autostart/dropbox.desktop
-    echo 'Empathy...'
-    [ -e /usr/share/applications/empathy.desktop ] && [ -e ~/.config/autostart/empathy.desktop ] || ln -s /usr/share/applications/empathy.desktop ~/.config/autostart/empathy.desktop
+    echo 'Pidgin...'
+    [ -e /usr/share/applications/pidgin.desktop ] && [ -e ~/.config/autostart/pidgin.desktop ] || ln -s /usr/share/applications/pidgin.desktop ~/.config/autostart/pidgin.desktop
     echo 'Hamster Indicator...'
     [ -e /usr/share/applications/hamster-indicator.desktop ] && [ -e ~/.config/autostart/hamster-indicator.desktop ] || ln -s /usr/share/applications/hamster-indicator.desktop ~/.config/autostart/hamster-indicator.desktop
     echo 'Indicator Multiload...'
