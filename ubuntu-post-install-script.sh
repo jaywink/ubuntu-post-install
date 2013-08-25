@@ -464,7 +464,7 @@ read INPUT
 if [ $INPUT -eq 1 ]; then
     echo 'Removing selected pre-installed applications...'
     echo 'Requires root privileges:'
-    sudo apt-get purge 
+    sudo apt-get purge empathy
     echo 'Done.'
     cleanup
 # Remove Old Kernel
