@@ -37,7 +37,7 @@ echo 'Updating repository information...'
 sudo apt-get update -qq
 # Dist-Upgrade
 echo 'Performing system upgrade...'
-sudo apt-get dist-upgrade -y
+sudo apt-get dist-upgrade
 echo 'Done.'
 main
 }
@@ -83,7 +83,7 @@ sudo add-apt-repository -y ppa:peterlevi/ppa
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
 # libnet-dbus-glib-perl required by shutter + ubuntu one integration
-sudo apt-get install -y --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser friends calibre qbittorrent shutter libnet-dbus-glib-perl my-weather-indicator diodon indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak variety pidgin pidgin-plugin-pack
+sudo apt-get install --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser friends calibre qbittorrent shutter libnet-dbus-glib-perl my-weather-indicator diodon indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak variety pidgin pidgin-plugin-pack
 echo 'Done.'
 main
 }
@@ -95,7 +95,7 @@ echo 'Adding PPA for: tlp'
 sudo add-apt-repository -y ppa:linrunner/tlp
 sudo apt-get update -qq
 echo 'Installing system tools...'
-sudo apt-get install -y --no-install-recommends ppa-purge tlp htop
+sudo apt-get install --no-install-recommends ppa-purge tlp htop
 echo 'Done.'
 main
 }
@@ -104,7 +104,7 @@ main
 function gamesinstall {
 echo 'Requires root privileges:'
 echo 'Installing games...'
-sudo apt-get install -y --no-install-recommends gcompris supertuxkart tuxpaint tuxpaint-config
+sudo apt-get install --no-install-recommends gcompris supertuxkart tuxpaint tuxpaint-config
 echo 'Done.'
 main
 }
@@ -114,7 +114,7 @@ function codecinstall {
 # Install Ubuntu Restricted Extras Applications
 echo 'Installing Ubuntu Restricted Extras...'
 echo 'Requires root privileges:'
-sudo apt-get install -y ubuntu-restricted-extras
+sudo apt-get install ubuntu-restricted-extras
 echo 'Done.'
 main
 }
@@ -143,7 +143,7 @@ if [ $INPUT -eq 1 ]; then
     sudo add-apt-repository -y ppa:chris-lea/node.js
     sudo apt-get update -qq
     echo 'Installing development tools...'
-    sudo apt-get install -y bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld geany geany-plugins mysql-workbench nodejs ipython ipython-doc
+    sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld geany geany-plugins mysql-workbench nodejs ipython ipython-doc
     echo 'Done.'
     devinstall
 # Install Ubuntu SDK
@@ -157,7 +157,7 @@ elif [ $INPUT -eq 2 ]; then
     echo 'Updating repository information...'
     sudo apt-get update -qq
     echo 'Installing Ubuntu SDK...'
-    sudo apt-get install -y ubuntu-sdk
+    sudo apt-get install ubuntu-sdk
     echo 'Done.'
     devinstall
 # Install Ubuntu Phablet Tools
@@ -168,14 +168,14 @@ elif [ $INPUT -eq 3 ]; then
     echo 'Updating repository information...'
     sudo apt-get update -qq
     echo 'Installing Ubuntu SDK...'
-    sudo apt-get install -y phablet-tools
+    sudo apt-get install phablet-tools
     echo 'Done.'
     devinstall
 # Install IRC Bot Tools
 elif [ $INPUT -eq 4 ]; then
     echo 'Installing IRC bot tools...'
     echo 'Requires root privileges:'
-    sudo apt-get install -y python-soappy supybot
+    sudo apt-get install python-soappy supybot
     echo 'Done.'
     devinstall
 # Return
@@ -470,14 +470,14 @@ if [ $INPUT -eq 1 ]; then
 elif [ $INPUT -eq 2 ]; then
     echo 'Removing old Kernel(s)...'
     echo 'Requires root privileges:'
-    sudo dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | grep -v linux-libc-dev | xargs sudo apt-get -y purge
+    sudo dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | grep -v linux-libc-dev | xargs sudo apt-get purge
     echo 'Done.'
     cleanup
 # Remove Orphaned Packages
 elif [ $INPUT -eq 3 ]; then
     echo 'Removing orphaned packages...'
     echo 'Requires root privileges:'
-    sudo apt-get autoremove -y
+    sudo apt-get autoremove
     echo 'Done.'
     cleanup
 # Remove residual config files?
