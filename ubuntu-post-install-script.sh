@@ -407,6 +407,20 @@ if [ $INPUT -eq 1 ]; then
     echo "Setting Pidgin settings..."
     #quieten signon notifs
     sed --in-place "s|<pref name='signon' type='bool' value='1'/>|<pref name='signon' type='bool' value='0'/>|" ~/.purple/prefs.xml
+    # Set default applications for mimetypes
+    echo "Setting default applications for certain mimetypes..."
+    DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    cd $DIR
+    python configure_default_app.py "text/html" sublime_text.desktop
+    python configure_default_app.py "application/x-php" sublime_text.desktop
+    python configure_default_app.py "application/javascript" sublime_text.desktop
+    python configure_default_app.py "text/plain" sublime_text.desktop
+    python configure_default_app.py "application/xml" sublime_text.desktop
+    python configure_default_app.py "text/x-sql" sublime_text.desktop
+    python configure_default_app.py "text/css" sublime_text.desktop
+    python configure_default_app.py "application/xhtml+xml" sublime_text.desktop
+    python configure_default_app.py "application/x-extension-xhtml" sublime_text.desktop
+    python configure_default_app.py "text/x-python" sublime_text.desktop
     config
 # Startup Applications
 elif [ $INPUT -eq 2 ]; then
