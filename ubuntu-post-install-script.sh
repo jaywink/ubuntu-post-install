@@ -141,9 +141,12 @@ if [ $INPUT -eq 1 ]; then
     sudo add-apt-repository -y ppa:geany-dev/ppa
     echo 'Adding PPA for: Node.js'
     sudo add-apt-repository -y ppa:chris-lea/node.js
+    echo 'Adding PPA for: Juju'
+    sudo add-apt-repository -y ppa:juju/devel
     sudo apt-get update -qq
     echo 'Installing development tools...'
-    sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld geany geany-plugins mysql-workbench nodejs ipython ipython-doc
+    # mongodb-server,lxc for juju
+    sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld geany geany-plugins mysql-workbench nodejs ipython ipython-doc juju-core mongodb-server lxc
     echo 'Done.'
     devinstall
 # Install Ubuntu SDK
