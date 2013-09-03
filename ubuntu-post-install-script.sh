@@ -430,6 +430,9 @@ if [ $INPUT -eq 1 ]; then
     python configure_default_app.py "application/xhtml+xml" sublime_text.desktop
     python configure_default_app.py "application/x-extension-xhtml" sublime_text.desktop
     python configure_default_app.py "text/x-python" sublime_text.desktop
+    # Set Unity launcher shortcuts
+    echo "Setting Unity launcher shortcuts..."
+    gsettings set com.canonical.Unity.Launcher favorites "['application://firefox.desktop', 'application://sublime_text.desktop', 'application://terminator.desktop', 'application://nautilus.desktop', 'application://xchat.desktop', 'application://clementine.desktop', 'application://kde4-digikam.desktop', 'application://minitube.desktop', 'application://keepassx.desktop', 'application://chromium-browser.desktop', 'application://gufw.desktop', 'application://MySQLWorkbench.desktop', 'unity://running-apps', 'unity://expo-icon', 'unity://devices']"
     config
 # Startup Applications
 elif [ $INPUT -eq 2 ]; then
