@@ -412,6 +412,10 @@ if [ $INPUT -eq 1 ]; then
     echo "Setting Pidgin settings..."
     #quieten signon notifs
     sed --in-place "s|<pref name='signon' type='bool' value='1'/>|<pref name='signon' type='bool' value='0'/>|" ~/.purple/prefs.xml
+    #quieten some sounds
+    sed --in-place "s|<pref name='login' type='bool' value='1'/>|<pref name='login' type='bool' value='0'/>|" ~/.purple/prefs.xml
+    sed --in-place "s|<pref name='logout' type='bool' value='1'/>|<pref name='logout' type='bool' value='0'/>|" ~/.purple/prefs.xml
+    sed --in-place "s|<pref name='send_im' type='bool' value='1'/>|<pref name='send_im' type='bool' value='0'/>|" ~/.purple/prefs.xml
     # Set default applications for mimetypes
     echo "Setting default applications for certain mimetypes..."
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
