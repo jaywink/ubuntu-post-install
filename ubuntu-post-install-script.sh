@@ -149,6 +149,10 @@ if [ $INPUT -eq 1 ]; then
     sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld geany geany-plugins mysql-workbench nodejs ipython ipython-doc juju-core mongodb-server lxc
     echo 'Install some Node modules...'
     sudo npm install -g bower
+    echo 'Installing Pythonz...'
+    curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
+    echo '[[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc' >> $HOME/.bashrc
+    source $HOME/.bashrc
     echo 'Done.'
     devinstall
 # Install Ubuntu SDK
