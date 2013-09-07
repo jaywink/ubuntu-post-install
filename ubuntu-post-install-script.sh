@@ -149,6 +149,8 @@ if [ $INPUT -eq 1 ]; then
     sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld geany geany-plugins mysql-workbench nodejs ipython ipython-doc juju-core mongodb-server lxc python-setuptools python-dev
     echo 'Install some Node modules...'
     sudo npm install -g bower
+    echo 'Installing PSS..'
+    sudo pip install pss
     echo 'Installing some extra Python stuff...'
     sudo easy_install pip
     sudo pip install virtualenv virtualenvwrapper
