@@ -146,13 +146,25 @@ if [ $INPUT -eq 1 ]; then
     sudo apt-get update -qq
     echo 'Installing development tools...'
     # mongodb-server,lxc for juju
-    sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld geany geany-plugins mysql-workbench nodejs ipython ipython-doc juju-core mongodb-server lxc
+    sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld geany geany-plugins mysql-workbench nodejs ipython ipython-doc juju-core mongodb-server lxc python-setuptools python-dev
     echo 'Install some Node modules...'
     sudo npm install -g bower
+    echo 'Installing some extra Python stuff...'
+    sudo easy_install pip
+    sudo pip install virtualenv virtualenvwrapper
+    if [[ ! -d $HOME/.virtualenvs ]]; then
+        mkdir $HOME/.virtualenvs
+        echo 'export WORKON_HOME=$HOME/.virtualenvs' >> $HOME/.bashrc
+        echo 'source /usr/local/bin/virtualenvwrapper.sh' >> $HOME/.bashrc
+        echo 'export PIP_VIRTUALENV_BASE=$WORKON_HOME' >> $HOME/.bashrc
+        source $HOME/.bashrc
+    fi
     echo 'Installing Pythonz...'
     curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
-    echo '[[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc' >> $HOME/.bashrc
-    source $HOME/.bashrc
+    if [[ `cat $HOME/.bashrc | grep pythonz | wc -l` -eq 0 ]]; then
+        echo '[[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc' >> $HOME/.bashrc
+        source $HOME/.bashrc
+    fi
     echo 'Done.'
     devinstall
 # Install Ubuntu SDK
