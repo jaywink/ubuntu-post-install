@@ -150,10 +150,10 @@ if [ $INPUT -eq 1 ]; then
     echo 'Install some Node modules...'
     sudo npm install -g bower
     echo 'Installing PSS..'
-    sudo pip install pss
+    sudo pip install -U pss
     echo 'Installing some extra Python stuff...'
     sudo easy_install pip
-    sudo pip install virtualenv virtualenvwrapper
+    sudo pip install -U virtualenv virtualenvwrapper
     if [[ ! -d $HOME/.virtualenvs ]]; then
         mkdir $HOME/.virtualenvs
         echo 'export WORKON_HOME=$HOME/.virtualenvs' >> $HOME/.bashrc
