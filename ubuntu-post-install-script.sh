@@ -95,7 +95,7 @@ echo 'Adding PPA for: tlp'
 sudo add-apt-repository -y ppa:linrunner/tlp
 sudo apt-get update -qq
 echo 'Installing system tools...'
-sudo apt-get install --no-install-recommends ppa-purge tlp htop
+sudo apt-get install --no-install-recommends ppa-purge tlp htop cups-pdf
 echo 'Done.'
 main
 }
