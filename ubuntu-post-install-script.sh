@@ -426,6 +426,9 @@ if [ $INPUT -eq 1 ]; then
     git config --global alias.hist "rev-list --graph --oneline HEAD --"
     git config --global alias.fixup "commit -a --amend --no-edit"
     git config --global push.default current
+    # Bazaar
+    echo 'Setting bazaar settings...'
+    bzr whoami "Jason Robinson <mail@jasonrobinson.me>"
     # Pidgin configuration
     echo "Setting Pidgin settings..."
     #quieten signon notifs
