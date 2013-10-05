@@ -370,8 +370,9 @@ elif [ $INPUT -eq 9 ]; then
     wget http://c758482.r82.cf2.rackcdn.com/sublime-text_build-3047_amd64.deb -O /tmp/sublime-text_build-3047_amd64.deb
     sudo dpkg -i /tmp/sublime-text_build-3047_amd64.deb
     rm -f /tmp/sublime-text_build-3047_amd64.deb
-    cp "configs/Default (Linux).sublime-keymap" "$HOME/.config/sublime-text-3/Packages/User/"
-    cp "configs/Preferences.sublime-settings" "$HOME/.config/sublime-text-3/Packages/User/"
+    # symlink to own U1 user directory
+    rm -rf $HOME/.config/sublime-text-3/Packages/User
+    ln -s "$HOME/Ubuntu One/config/sublimetext/User" $HOME/.config/sublime-text-3/Packages/User
     # install package manager from git
     cd $HOME/.config/sublime-text-3/Packages
     git clone https://github.com/wbond/sublime_package_control.git "Package Control"
