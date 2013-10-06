@@ -324,7 +324,8 @@ while [ true ]
 do
 echo '1. Set preferred application-specific settings?'
 echo '2. Set auto start of applications?'
-echo '3. Return'
+echo '3. Set some bash aliases and settings?'
+echo '0. Return'
 echo ''
 read INPUT
 # GSettings
@@ -399,8 +400,16 @@ elif [ $INPUT -eq 2 ]; then
     [ -e /usr/share/applications/shutter.desktop ] && [ -e ~/.config/autostart/shutter.desktop ] || ln -s /usr/share/applications/shutter.desktop ~/.config/autostart/shutter.desktop
     echo 'Done.'
     config
-# Return
+# Bash aliases and settings
 elif [ $INPUT -eq 3 ]; then
+    echo 'Setting some bash aliases and settings..'
+    if [[ 'cat $HOME/.bashrc | grep additionalrc | wc -l' -eq 0 ]]; then
+        echo 'source "$HOME/Ubuntu One/config/bash/additionalrc"' >> $HOME/.bashrc
+    fi    
+    echo 'Done.'
+    config
+# Return
+elif [ $INPUT -eq 0 ]; then
     clear && main
 else
 # Invalid Choice
