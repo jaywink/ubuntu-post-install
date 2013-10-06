@@ -6,7 +6,7 @@
 #	Jason Robinson <jaywink@basshero.org>
 #
 # Description:
-#   A post-installation bash script for Ubuntu (13.04)
+#   A post-installation bash script for Ubuntu (13.xx)
 #
 # Legal Stuff:
 #
@@ -24,7 +24,7 @@
 
 echo ''
 echo '#-------------------------------------------#'
-echo '#     Ubuntu 13.04 Post-Install Script      #'
+echo '#     Ubuntu 13.xx Post-Install Script      #'
 echo '#-------------------------------------------#'
 
 #----- FUNCTIONS -----#
@@ -49,10 +49,11 @@ echo 'Requires root privileges:'
 echo 'Adding proposed repository - are you sure (y to accept)? Things could break...'
 read REPLY
 if [ '$REPLY' == 'y' ]; then
-    if [ `cat /etc/apt/sources.list | grep raring-proposed -c` -eq 0 ]; then
+    RELEASE=`lsb_release -sc`
+    if [ `cat /etc/apt/sources.list | grep $RELEASE-proposed -c` -eq 0 ]; then
         echo 'Adding proposed repository'
         SOURCELINE=( `cat /etc/apt/sources.list | grep archive.ubuntu.com -m 1` )
-        sudo add-apt-repository -y "deb ${SOURCELINE[1]} $(lsb_release -sc)-proposed restricted main universe multiverse"
+        sudo add-apt-repository -y "deb ${SOURCELINE[1]} $RELEASE-proposed restricted main universe multiverse"
     fi
     sysupgrade
 else
@@ -66,8 +67,6 @@ function appinstall {
 echo 'Requires root privileges:'
 echo 'Adding PPA for: my-weather-indicator'
 sudo add-apt-repository -y ppa:atareao/atareao
-echo 'Adding PPA for: qBittorrent'
-sudo add-apt-repository -y ppa:saiarcot895/myppa
 echo 'Adding PPA for: y-ppa-manager'
 sudo add-apt-repository -y ppa:webupd8team/y-ppa-manager
 echo 'Adding webupd8 PPA'
@@ -75,15 +74,15 @@ sudo add-apt-repository -y ppa:nilarimogard/webupd8
 echo 'Adding PPA for: GIMP'
 sudo add-apt-repository -y ppa:otto-kesselgulasch/gimp
 echo 'Adding PPA for: Ubuntu Tweak'
-sudo add-apt-repository -y ppa:tualatrix/ppa
+sudo add-apt-repository -y ppa:ubuntu-tweak-testing/ppa
 echo 'Adding PPA for: Diodon'
-sudo add-apt-repository -y ppa:diodon-team/stable 
+sudo add-apt-repository -y ppa:diodon-team/daily
 echo 'Adding PPA for: Variety'
 sudo add-apt-repository -y ppa:peterlevi/ppa
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
 # libnet-dbus-glib-perl required by shutter + ubuntu one integration
-sudo apt-get install --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser friends calibre qbittorrent shutter libnet-dbus-glib-perl my-weather-indicator diodon indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc wireshark ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine
+sudo apt-get install --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser calibre qbittorrent shutter libnet-dbus-glib-perl my-weather-indicator diodon indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine
 echo 'Done.'
 main
 }
@@ -91,11 +90,8 @@ main
 # INSTALL SYSTEM TOOLS
 function toolinstall {
 echo 'Requires root privileges:'
-echo 'Adding PPA for: tlp'
-sudo add-apt-repository -y ppa:linrunner/tlp
-sudo apt-get update -qq
 echo 'Installing system tools...'
-sudo apt-get install --no-install-recommends ppa-purge tlp htop cups-pdf
+sudo apt-get install --no-install-recommends ppa-purge htop cups-pdf
 echo 'Done.'
 main
 }
@@ -128,17 +124,13 @@ echo ''
 while [ true ]
 do
 echo '1. Install development tools?'
-echo '2. Install Ubuntu SDK?'
 echo '3. Install Ubuntu Phablet Tools?'
-echo '4. Install IRC bot tools?'
-echo '5. Return'
+echo '0. Return'
 echo ''
 read INPUT
 # Install Development Tools
 if [ $INPUT -eq 1 ]; then
     echo 'Requires root privileges:'
-    echo 'Adding PPA for: geany'
-    sudo add-apt-repository -y ppa:geany-dev/ppa
     echo 'Adding PPA for: Node.js'
     sudo add-apt-repository -y ppa:chris-lea/node.js
     echo 'Adding PPA for: Juju'
@@ -146,7 +138,7 @@ if [ $INPUT -eq 1 ]; then
     sudo apt-get update -qq
     echo 'Installing development tools...'
     # mongodb-server,lxc for juju
-    sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld geany geany-plugins mysql-workbench nodejs ipython ipython-doc juju-core mongodb-server lxc python-setuptools python-dev giggle golang-go
+    sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld mysql-workbench nodejs ipython ipython-doc juju-core mongodb-server lxc python-setuptools python-dev giggle golang-go
     echo 'Install some Node modules...'
     sudo npm install -g bower
     echo 'Installing PSS..'
@@ -169,18 +161,8 @@ if [ $INPUT -eq 1 ]; then
     fi
     echo 'Done.'
     devinstall
-# Install Ubuntu SDK
+# Empty
 elif [ $INPUT -eq 2 ]; then
-    echo 'Adding QT5 Edgers PPA to software sources...'
-    echo 'Requires root privileges:'
-    sudo add-apt-repository -y ppa:canonical-qt5-edgers/qt5-proper
-    echo 'Adding Ubuntu SDK Team PPA to software sources...'
-    echo 'Requires root privileges:'
-    sudo add-apt-repository -y ppa:ubuntu-sdk-team/ppa
-    echo 'Updating repository information...'
-    sudo apt-get update -qq
-    echo 'Installing Ubuntu SDK...'
-    sudo apt-get install ubuntu-sdk
     echo 'Done.'
     devinstall
 # Install Ubuntu Phablet Tools
@@ -194,15 +176,8 @@ elif [ $INPUT -eq 3 ]; then
     sudo apt-get install phablet-tools
     echo 'Done.'
     devinstall
-# Install IRC Bot Tools
-elif [ $INPUT -eq 4 ]; then
-    echo 'Installing IRC bot tools...'
-    echo 'Requires root privileges:'
-    sudo apt-get install python-soappy supybot
-    echo 'Done.'
-    devinstall
 # Return
-elif [ $INPUT -eq 5 ]; then
+elif [ $INPUT -eq 0 ]; then
     clear && main
 else
 # Invalid Choice
@@ -220,41 +195,16 @@ echo 'What would you like to do? (Enter the number of your choice)'
 echo ''
 while [ true ]
 do
-echo '1. Install Google Chrome (Unstable)?'
 echo '2. Install Google Talk Plugin?'
-echo '3. Install Steam?'
-echo '4. Install Unity Tweak Tool?'
 echo '5. Install DVD playback tools?'
 echo '6. Install EasyShutdown?'
 echo '7. Install GetDeb games?'
-echo '8. Install Great Little Radio Player?'
 echo '9. Install Sublime Text?'
 echo '0. Return'
 echo ''
 read INPUT
-# Google Chrome
+# Empty
 if [ $INPUT -eq 1 ]; then
-    echo 'Downloading Google Chrome (Unstable)...'
-    # Make tmp directory
-    if [ ! -d $HOME/tmp ]; then
-        mkdir -p $HOME/tmp
-    else
-        continue
-    fi
-    cd $HOME/tmp
-    # Download Debian file that matches system architecture
-    if [ $(uname -i) = 'i386' ]; then
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb
-    elif [ $(uname -i) = 'x86_64' ]; then
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    fi
-    # Install the package
-    echo 'Installing Google Chrome...'
-    sudo dpkg -i google*.deb
-    sudo apt-get install -fy
-    # Cleanup and finish
-    rm *.deb
-    cd
     echo 'Done.'
     thirdparty
 # Google Talk Plugin
@@ -282,43 +232,12 @@ elif [ $INPUT -eq 2 ]; then
     cd
     echo 'Done.'
     thirdparty
-# Steam
+# Empty
 elif [ $INPUT -eq 3 ]; then
-    echo 'Downloading Steam...'
-    # Make tmp directory
-    if [ ! -d $HOME/tmp ]; then
-        mkdir -p $HOME/tmp
-    else
-        continue
-    fi
-    cd $HOME/tmp
-    # Download Debian file that matches system architecture
-    if [ $(uname -i) = 'i386' ]; then
-        wget http://repo.steampowered.com/steam/archive/precise/steam_latest.deb
-    elif [ $(uname -i) = 'x86_64' ]; then
-        wget http://repo.steampowered.com/steam/archive/precise/steam_latest.deb
-    fi
-    # Install the package
-    echo 'Installing Steam...'
-    sudo dpkg -i steam*.deb
-    sudo apt-get install -fy
-    # Cleanup and finish
-    rm *.deb
-    cd
     echo 'Done.'
     thirdparty
-# Unity Tweak Tool
+# Empty
 elif [ $INPUT -eq 4 ]; then
-    # Add repository
-    echo 'Adding Unity Tweak Tool repository to sources...'
-    echo 'Requires root privileges:'
-    sudo add-apt-repository -y ppa:freyja-dev/unity-tweak-tool-daily
-    # Update Repository Information
-    echo 'Updating repository information...'
-    sudo apt-get update -qq
-    # Install the package
-    echo 'Installing Unity Tweak Tool...'
-    sudo apt-get install -y unity-tweak-tool
     echo 'Done.'
     thirdparty
 # Medibuntu
@@ -341,7 +260,7 @@ elif [ $INPUT -eq 6 ]; then
     sudo apt-get -f install
     echo 'Done.'
     thirdparty
-# GetDeb and some games
+# Empty
 elif [ $INPUT -eq 7 ]; then
     echo 'Installing GetDeb and some games...'
     echo 'Adding repository...'
@@ -354,13 +273,8 @@ elif [ $INPUT -eq 7 ]; then
     sudo apt-get install -y freeciv-client-gtk
     echo 'Done.'
     thirdparty
-# Great Little Radio Player
+# Empty
 elif [ $INPUT -eq 8 ]; then
-    echo 'Installing Great Little Radio Player...'
-    echo 'Requires root privileges:'
-    wget http://ubuntuone.com/07PaN5spFvXSMt3bhqY6us -O /tmp/greatlittleradioplayer_1.4.2_amd64.deb
-    sudo dpkg -i /tmp/greatlittleradioplayer_1.4.2_amd64.deb
-    rm -f /tmp/greatlittleradioplayer_1.4.2_amd64.deb
     echo 'Done.'
     thirdparty
 # Sublime Text
@@ -378,9 +292,6 @@ elif [ $INPUT -eq 9 ]; then
     git clone https://github.com/wbond/sublime_package_control.git "Package Control"
     cd "Package Control"
     git checkout python3
-    # install indentxml plugin
-    cd $HOME/.config/sublime-text-3/Packages
-    git clone https://github.com/alek-sys/sublimetext_indentxml.git indentxml
     echo 'Done.'
     thirdparty
 # Return
@@ -423,7 +334,7 @@ if [ $INPUT -eq 1 ]; then
     echo 'Setting git settings...'
     git config --global push.default current
     git config --global user.name Jason Robinson
-    git config --global user.email jaywink@basshero.org
+    git config --global user.email mail@jasonrobinson.me
     git config --global alias.hist "rev-list --graph --oneline HEAD --"
     git config --global alias.fixup "commit -a --amend --no-edit"
     git config --global push.default current
@@ -454,7 +365,7 @@ if [ $INPUT -eq 1 ]; then
     python configure_default_app.py "text/x-python" sublime_text.desktop
     # Set Unity launcher shortcuts
     echo "Setting Unity launcher shortcuts..."
-    gsettings set com.canonical.Unity.Launcher favorites "['application://firefox.desktop', 'application://sublime_text.desktop', 'application://terminator.desktop', 'application://nautilus.desktop', 'application://xchat.desktop', 'application://clementine.desktop', 'application://kde4-digikam.desktop', 'application://minitube.desktop', 'application://keepassx.desktop', 'application://chromium-browser.desktop', 'application://gufw.desktop', 'application://MySQLWorkbench.desktop', 'unity://running-apps', 'unity://expo-icon', 'unity://devices']"
+    gsettings set com.canonical.Unity.Launcher favorites "['application://firefox.desktop', 'application://sublime_text.desktop', 'application://terminator.desktop', 'application://thunderbird.desktop', 'application://nautilus.desktop', 'application://xchat.desktop', 'application://clementine.desktop', 'application://kde4-digikam.desktop', 'application://minitube.desktop', 'application://keepassx.desktop', 'application://chromium-browser.desktop', 'application://gufw.desktop', 'application://MySQLWorkbench.desktop', 'unity://running-apps', 'unity://expo-icon', 'unity://devices']"
     config
 # Startup Applications
 elif [ $INPUT -eq 2 ]; then
