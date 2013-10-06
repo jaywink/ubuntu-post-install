@@ -106,6 +106,10 @@ echo 'qBittorrent...'
 [ -e /usr/share/applications/qBittorrent.desktop ] && [ -e ~/.config/autostart/qbittorrent.desktop ] || ln -s /usr/share/applications/qBittorrent.desktop ~/.config/autostart/qbittorrent.desktop
 echo 'Shutter...'
 [ -e /usr/share/applications/shutter.desktop ] && [ -e ~/.config/autostart/shutter.desktop ] || ln -s /usr/share/applications/shutter.desktop ~/.config/autostart/shutter.desktop
+# terminator config
+echo 'Restore terminator config..'
+cp $HOME/.config/terminator/config $HOME/.config/terminator/config.post-install-bak
+cp "$HOME/Ubuntu One/config/terminator/config" $HOME/.config/terminator/
 echo 'Done.'
 main
 }
