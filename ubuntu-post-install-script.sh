@@ -91,7 +91,7 @@ main
 function toolinstall {
 echo 'Requires root privileges:'
 echo 'Installing system tools...'
-sudo apt-get install --no-install-recommends ppa-purge htop cups-pdf
+sudo apt-get install --no-install-recommends ppa-purge htop cups-pdf unzip zip
 echo 'Done.'
 main
 }
@@ -118,6 +118,9 @@ main
 # INSTALL DEVELOPMENT TOOLS
 function devinstall {
 INPUT=0
+if [[ ! -d $HOME/workspace ]]; then
+    mkdir $HOME/workspace
+fi
 echo ''
 echo 'What would you like to do? (Enter the number of your choice)'
 echo ''
@@ -161,8 +164,14 @@ if [ $INPUT -eq 1 ]; then
     fi
     echo 'Done.'
     devinstall
-# Empty
+# Mozilla Addon SDK
 elif [ $INPUT -eq 2 ]; then
+    echo 'Installing Mozilla Addon SDK..'
+    cd $HOME/workspace
+    wget https://ftp.mozilla.org/pub/mozilla.org/labs/jetpack/jetpack-sdk-latest.zip -o jetpack-sdk-latest.zip
+    unzip jetpack-sdk-latest.zip
+    rm -f jetpack-sdk-latest.zip
+    sed --in-place "s|<em:maxVersion>20.*</em:maxVersion>|<em:maxVersion>27.*</em:maxVersion>|" addon-sdk-1.14/app-extension/install.rdf
     echo 'Done.'
     devinstall
 # Install Ubuntu Phablet Tools
