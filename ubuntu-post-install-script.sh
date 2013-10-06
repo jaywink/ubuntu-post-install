@@ -83,6 +83,29 @@ sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
 # libnet-dbus-glib-perl required by shutter + ubuntu one integration
 sudo apt-get install --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser calibre qbittorrent shutter libnet-dbus-glib-perl my-weather-indicator diodon indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine
+# Pidgin configuration
+echo "Setting Pidgin settings..."
+#quieten signon notifs
+sed --in-place "s|<pref name='signon' type='bool' value='1'/>|<pref name='signon' type='bool' value='0'/>|" ~/.purple/prefs.xml
+#quieten some sounds
+sed --in-place "s|<pref name='login' type='bool' value='1'/>|<pref name='login' type='bool' value='0'/>|" ~/.purple/prefs.xml
+sed --in-place "s|<pref name='logout' type='bool' value='1'/>|<pref name='logout' type='bool' value='0'/>|" ~/.purple/prefs.xml
+sed --in-place "s|<pref name='send_im' type='bool' value='1'/>|<pref name='send_im' type='bool' value='0'/>|" ~/.purple/prefs.xml
+echo 'Make some installed apps startup automatically.'
+echo 'Dropbox...'
+[ -e /usr/share/applications/dropbox.desktop ] && [ -e ~/.config/autostart/dropbox.desktop ] || ln -s /usr/share/applications/dropbox.desktop ~/.config/autostart/dropbox.desktop
+echo 'Pidgin...'
+[ -e /usr/share/applications/pidgin.desktop ] && [ -e ~/.config/autostart/pidgin.desktop ] || ln -s /usr/share/applications/pidgin.desktop ~/.config/autostart/pidgin.desktop
+echo 'Hamster Indicator...'
+[ -e /usr/share/applications/hamster-indicator.desktop ] && [ -e ~/.config/autostart/hamster-indicator.desktop ] || ln -s /usr/share/applications/hamster-indicator.desktop ~/.config/autostart/hamster-indicator.desktop
+echo 'Indicator Multiload...'
+[ -e /usr/share/applications/indicator-multiload.desktop ] && [ -e ~/.config/autostart/indicator-multiload.desktop ] || ln -s /usr/share/applications/indicator-multiload.desktop ~/.config/autostart/indicator-multiload.desktop
+echo 'My Weather Indicator...'
+[ -e /opt/extras.ubuntu.com/my-weather-indicator/share/my-weather-indicator/my-weather-indicator-autostart.desktop ] && [ -e ~/.config/autostart/my-weather-indicator-autostart.desktop ] || ln -s /opt/extras.ubuntu.com/my-weather-indicator/share/my-weather-indicator/my-weather-indicator-autostart.desktop ~/.config/autostart/my-weather-indicator-autostart.desktop
+echo 'qBittorrent...'
+[ -e /usr/share/applications/qBittorrent.desktop ] && [ -e ~/.config/autostart/qbittorrent.desktop ] || ln -s /usr/share/applications/qBittorrent.desktop ~/.config/autostart/qbittorrent.desktop
+echo 'Shutter...'
+[ -e /usr/share/applications/shutter.desktop ] && [ -e ~/.config/autostart/shutter.desktop ] || ln -s /usr/share/applications/shutter.desktop ~/.config/autostart/shutter.desktop
 echo 'Done.'
 main
 }
@@ -162,6 +185,17 @@ if [ $INPUT -eq 1 ]; then
         echo '[[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc' >> $HOME/.bashrc
         source $HOME/.bashrc
     fi
+    # Git
+    echo 'Setting git settings...'
+    git config --global push.default current
+    git config --global user.name Jason Robinson
+    git config --global user.email mail@jasonrobinson.me
+    git config --global alias.hist "rev-list --graph --oneline HEAD --"
+    git config --global alias.fixup "commit -a --amend --no-edit"
+    git config --global push.default current
+    # Bazaar
+    echo 'Setting bazaar settings...'
+    bzr whoami "Jason Robinson <mail@jasonrobinson.me>"
     echo 'Done.'
     devinstall
 # Mozilla Addon SDK
@@ -301,6 +335,20 @@ elif [ $INPUT -eq 9 ]; then
     git clone https://github.com/wbond/sublime_package_control.git "Package Control"
     cd "Package Control"
     git checkout python3
+    # Set default applications for mimetypes
+    echo "Setting default applications for certain mimetypes..."
+    DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    cd $DIR
+    python configure_default_app.py "text/html" sublime_text.desktop
+    python configure_default_app.py "application/x-php" sublime_text.desktop
+    python configure_default_app.py "application/javascript" sublime_text.desktop
+    python configure_default_app.py "text/plain" sublime_text.desktop
+    python configure_default_app.py "application/xml" sublime_text.desktop
+    python configure_default_app.py "text/x-sql" sublime_text.desktop
+    python configure_default_app.py "text/css" sublime_text.desktop
+    python configure_default_app.py "application/xhtml+xml" sublime_text.desktop
+    python configure_default_app.py "application/x-extension-xhtml" sublime_text.desktop
+    python configure_default_app.py "text/x-python" sublime_text.desktop
     echo 'Done.'
     thirdparty
 # Return
@@ -340,39 +388,6 @@ if [ $INPUT -eq 1 ]; then
     gsettings set org.gnome.gedit.preferences.editor auto-save true
     gsettings set org.gnome.gedit.preferences.editor insert-spaces true
     gsettings set org.gnome.gedit.preferences.editor tabs-size 4
-    # Git
-    echo 'Setting git settings...'
-    git config --global push.default current
-    git config --global user.name Jason Robinson
-    git config --global user.email mail@jasonrobinson.me
-    git config --global alias.hist "rev-list --graph --oneline HEAD --"
-    git config --global alias.fixup "commit -a --amend --no-edit"
-    git config --global push.default current
-    # Bazaar
-    echo 'Setting bazaar settings...'
-    bzr whoami "Jason Robinson <mail@jasonrobinson.me>"
-    # Pidgin configuration
-    echo "Setting Pidgin settings..."
-    #quieten signon notifs
-    sed --in-place "s|<pref name='signon' type='bool' value='1'/>|<pref name='signon' type='bool' value='0'/>|" ~/.purple/prefs.xml
-    #quieten some sounds
-    sed --in-place "s|<pref name='login' type='bool' value='1'/>|<pref name='login' type='bool' value='0'/>|" ~/.purple/prefs.xml
-    sed --in-place "s|<pref name='logout' type='bool' value='1'/>|<pref name='logout' type='bool' value='0'/>|" ~/.purple/prefs.xml
-    sed --in-place "s|<pref name='send_im' type='bool' value='1'/>|<pref name='send_im' type='bool' value='0'/>|" ~/.purple/prefs.xml
-    # Set default applications for mimetypes
-    echo "Setting default applications for certain mimetypes..."
-    DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-    cd $DIR
-    python configure_default_app.py "text/html" sublime_text.desktop
-    python configure_default_app.py "application/x-php" sublime_text.desktop
-    python configure_default_app.py "application/javascript" sublime_text.desktop
-    python configure_default_app.py "text/plain" sublime_text.desktop
-    python configure_default_app.py "application/xml" sublime_text.desktop
-    python configure_default_app.py "text/x-sql" sublime_text.desktop
-    python configure_default_app.py "text/css" sublime_text.desktop
-    python configure_default_app.py "application/xhtml+xml" sublime_text.desktop
-    python configure_default_app.py "application/x-extension-xhtml" sublime_text.desktop
-    python configure_default_app.py "text/x-python" sublime_text.desktop
     # Set Unity launcher shortcuts
     echo "Setting Unity launcher shortcuts..."
     gsettings set com.canonical.Unity.Launcher favorites "['application://firefox.desktop', 'application://sublime_text.desktop', 'application://terminator.desktop', 'application://thunderbird.desktop', 'application://nautilus.desktop', 'application://xchat.desktop', 'application://clementine.desktop', 'application://kde4-digikam.desktop', 'application://minitube.desktop', 'application://keepassx.desktop', 'application://chromium-browser.desktop', 'application://gufw.desktop', 'application://MySQLWorkbench.desktop', 'unity://running-apps', 'unity://expo-icon', 'unity://devices']"
@@ -383,21 +398,6 @@ elif [ $INPUT -eq 2 ]; then
     echo 'Requires root privileges:'    
     cd /etc/xdg/autostart/ && sudo sed --in-place 's/NoDisplay=true/NoDisplay=false/g' *.desktop
     cd
-    echo 'Make some installed apps startup automatically.'
-    echo 'Dropbox...'
-    [ -e /usr/share/applications/dropbox.desktop ] && [ -e ~/.config/autostart/dropbox.desktop ] || ln -s /usr/share/applications/dropbox.desktop ~/.config/autostart/dropbox.desktop
-    echo 'Pidgin...'
-    [ -e /usr/share/applications/pidgin.desktop ] && [ -e ~/.config/autostart/pidgin.desktop ] || ln -s /usr/share/applications/pidgin.desktop ~/.config/autostart/pidgin.desktop
-    echo 'Hamster Indicator...'
-    [ -e /usr/share/applications/hamster-indicator.desktop ] && [ -e ~/.config/autostart/hamster-indicator.desktop ] || ln -s /usr/share/applications/hamster-indicator.desktop ~/.config/autostart/hamster-indicator.desktop
-    echo 'Indicator Multiload...'
-    [ -e /usr/share/applications/indicator-multiload.desktop ] && [ -e ~/.config/autostart/indicator-multiload.desktop ] || ln -s /usr/share/applications/indicator-multiload.desktop ~/.config/autostart/indicator-multiload.desktop
-    echo 'My Weather Indicator...'
-    [ -e /opt/extras.ubuntu.com/my-weather-indicator/share/my-weather-indicator/my-weather-indicator-autostart.desktop ] && [ -e ~/.config/autostart/my-weather-indicator-autostart.desktop ] || ln -s /opt/extras.ubuntu.com/my-weather-indicator/share/my-weather-indicator/my-weather-indicator-autostart.desktop ~/.config/autostart/my-weather-indicator-autostart.desktop
-    echo 'qBittorrent...'
-    [ -e /usr/share/applications/qBittorrent.desktop ] && [ -e ~/.config/autostart/qbittorrent.desktop ] || ln -s /usr/share/applications/qBittorrent.desktop ~/.config/autostart/qbittorrent.desktop
-    echo 'Shutter...'
-    [ -e /usr/share/applications/shutter.desktop ] && [ -e ~/.config/autostart/shutter.desktop ] || ln -s /usr/share/applications/shutter.desktop ~/.config/autostart/shutter.desktop
     echo 'Done.'
     config
 # Bash aliases and settings
