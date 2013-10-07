@@ -107,9 +107,33 @@ echo 'qBittorrent...'
 echo 'Shutter...'
 [ -e /usr/share/applications/shutter.desktop ] && [ -e ~/.config/autostart/shutter.desktop ] || ln -s /usr/share/applications/shutter.desktop ~/.config/autostart/shutter.desktop
 # terminator config
-echo 'Restore terminator config..'
-cp $HOME/.config/terminator/config $HOME/.config/terminator/config.post-install-bak
-cp "$HOME/Ubuntu One/config/terminator/config" $HOME/.config/terminator/
+echo 'Symlink Terminator config..'
+rm -f $HOME/.config/terminator/config
+ln -s "$HOME/Ubuntu One/config/terminator/config" $HOME/.config/terminator/config
+# clementine config
+echo 'Symlink Clementine config and db..'
+rm -f $HOME/.config/Clementine/Clementine.conf
+ln -s "$HOME/Ubuntu One/config/clementine/Clementine.conf" $HOME/.config/Clementine/Clementine.conf
+rm -f $HOME/.config/Clementine/clementine.db
+ln -s "$HOME/Ubuntu One/config/clementine/clementine.db" $HOME/.config/Clementine/clementine.db
+# my-weather-indicator config
+echo 'Symlink My Weather Indicator config..'
+rm -f $HOME/.config/my-weather-indicator/my-weather-indicator.conf
+ln -s "$HOME/Ubuntu One/config/my-weather-indicator/my-weather-indicator.conf" $HOME/.config/my-weather-indicator/my-weather-indicator.conf
+# variety config
+echo 'Symlink Variety configs and favourites..'
+rm -f $HOME/.config/variety/banned.txt
+ln -s "$HOME/Ubuntu One/config/variety/banned.txt" $HOME/.config/variety/banned.txt
+rm -f $HOME/.config/variety/variety.conf
+ln -s "$HOME/Ubuntu One/config/variety/variety.conf" $HOME/.config/variety/variety.conf
+rm -rf $HOME/.config/variety/Favorites
+ln -s "$HOME/Ubuntu One/config/variety/Favorites" $HOME/.config/variety/Favorites
+# shutter config
+echo 'Symlink Shutter configs..'
+rm -f $HOME/.shutter/accounts.xml
+ln -s "$HOME/Ubuntu One/config/shutter/accounts.xml" $HOME/.shutter/accounts.xml
+rm -f $HOME/.shutter/settings.xml
+ln -s "$HOME/Ubuntu One/config/shutter/settings.xml" $HOME/.shutter/settings.xml
 echo 'Done.'
 main
 }
@@ -190,16 +214,16 @@ if [ $INPUT -eq 1 ]; then
         source $HOME/.bashrc
     fi
     # Git
-    echo 'Setting git settings...'
-    git config --global push.default current
-    git config --global user.name Jason Robinson
-    git config --global user.email mail@jasonrobinson.me
-    git config --global alias.hist "rev-list --graph --oneline HEAD --"
-    git config --global alias.fixup "commit -a --amend --no-edit"
-    git config --global push.default current
+    echo 'Symlink git config...'
+    # git config
+    rm -f $HOME/.gitconfig
+    ln -s "$HOME/Ubuntu One/config/git/gitconfig" $HOME/.gitconfig
     # Bazaar
-    echo 'Setting bazaar settings...'
-    bzr whoami "Jason Robinson <mail@jasonrobinson.me>"
+    echo 'Symlink bazaar configs...'
+    rm -f $HOME/.bazaar/authentication.conf
+    ln -s "$HOME/Ubuntu One/config/bazaar/authentication.conf" $HOME/.bazaar/authentication.conf
+    rm -f $HOME/.bazaar/bazaar.conf
+    ln -s "$HOME/Ubuntu One/config/bazaar/bazaar.conf" $HOME/.bazaar/bazaar.conf
     echo 'Done.'
     devinstall
 # Mozilla Addon SDK
@@ -374,13 +398,13 @@ echo 'What would you like to do? (Enter the number of your choice)'
 echo ''
 while [ true ]
 do
-echo '1. Set preferred application-specific settings?'
+echo '1. Set some generic application and environment settings?'
 echo '2. Set auto start of applications?'
 echo '3. Set some bash aliases and settings?'
 echo '0. Return'
 echo ''
 read INPUT
-# GSettings
+# App and env settings
 if [ $INPUT -eq 1 ]; then
     # Nautilus Preferences
     echo 'Setting Nautilus preferences...'
@@ -395,6 +419,14 @@ if [ $INPUT -eq 1 ]; then
     # Set Unity launcher shortcuts
     echo "Setting Unity launcher shortcuts..."
     gsettings set com.canonical.Unity.Launcher favorites "['application://firefox.desktop', 'application://sublime_text.desktop', 'application://terminator.desktop', 'application://thunderbird.desktop', 'application://nautilus.desktop', 'application://xchat.desktop', 'application://clementine.desktop', 'application://kde4-digikam.desktop', 'application://minitube.desktop', 'application://keepassx.desktop', 'application://chromium-browser.desktop', 'application://gufw.desktop', 'application://MySQLWorkbench.desktop', 'unity://running-apps', 'unity://expo-icon', 'unity://devices']"
+    # SSH
+    if [[ ! -d $HOME/.ssh ]]; then
+        mkdir $HOME/.ssh
+    fi
+    rm -f $HOME/.ssh/config $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub
+    ln -s "$HOME/Ubuntu One/config/ssh/config" $HOME/.ssh/config
+    ln -s "$HOME/Ubuntu One/config/ssh/id_rsa" $HOME/.ssh/id_rsa
+    ln -s "$HOME/Ubuntu One/config/ssh/id_rsa.pub" $HOME/.ssh/id_rsa.pub
     config
 # Startup Applications
 elif [ $INPUT -eq 2 ]; then
