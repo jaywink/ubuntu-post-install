@@ -108,32 +108,58 @@ echo 'Shutter...'
 [ -e /usr/share/applications/shutter.desktop ] && [ -e ~/.config/autostart/shutter.desktop ] || ln -s /usr/share/applications/shutter.desktop ~/.config/autostart/shutter.desktop
 # terminator config
 echo 'Symlink Terminator config..'
+if [[ ! -d $HOME/.config/terminator ]]; then
+    mkdir -p $HOME/.config/terminator
+fi
 rm -f $HOME/.config/terminator/config
 ln -s "$HOME/Ubuntu One/config/terminator/config" $HOME/.config/terminator/config
 # clementine config
 echo 'Symlink Clementine config and db..'
+if [[ ! -d $HOME/.config/Clementine ]]; then
+    mkdir -p $HOME/.config/Clementine
+fi
 rm -f $HOME/.config/Clementine/Clementine.conf
 ln -s "$HOME/Ubuntu One/config/clementine/Clementine.conf" $HOME/.config/Clementine/Clementine.conf
-rm -f $HOME/.config/Clementine/clementine.db
-ln -s "$HOME/Ubuntu One/config/clementine/clementine.db" $HOME/.config/Clementine/clementine.db
 # my-weather-indicator config
 echo 'Symlink My Weather Indicator config..'
+if [[ ! -d $HOME/.config/my-weather-indicator ]]; then
+    mkdir -p $HOME/.config/my-weather-indicator
+fi
 rm -f $HOME/.config/my-weather-indicator/my-weather-indicator.conf
 ln -s "$HOME/Ubuntu One/config/my-weather-indicator/my-weather-indicator.conf" $HOME/.config/my-weather-indicator/my-weather-indicator.conf
 # variety config
 echo 'Symlink Variety configs and favourites..'
-rm -f $HOME/.config/variety/banned.txt
-ln -s "$HOME/Ubuntu One/config/variety/banned.txt" $HOME/.config/variety/banned.txt
-rm -f $HOME/.config/variety/variety.conf
-ln -s "$HOME/Ubuntu One/config/variety/variety.conf" $HOME/.config/variety/variety.conf
+if [[ ! -d $HOME/.config/variety ]]; then
+    mkdir -p $HOME/.config/variety
+fi
+rm -f $HOME/.config/variety/banned.txt $HOME/.config/variety/variety.conf
 rm -rf $HOME/.config/variety/Favorites
+ln -s "$HOME/Ubuntu One/config/variety/banned.txt" $HOME/.config/variety/banned.txt
+ln -s "$HOME/Ubuntu One/config/variety/variety.conf" $HOME/.config/variety/variety.conf
 ln -s "$HOME/Ubuntu One/config/variety/Favorites" $HOME/.config/variety/Favorites
 # shutter config
 echo 'Symlink Shutter configs..'
-rm -f $HOME/.shutter/accounts.xml
+if [[ ! -d $HOME/.shutter ]]; then
+    mkdir -p $HOME/.shutter
+fi
+rm -f $HOME/.shutter/accounts.xml $HOME/.shutter/settings.xml
 ln -s "$HOME/Ubuntu One/config/shutter/accounts.xml" $HOME/.shutter/accounts.xml
-rm -f $HOME/.shutter/settings.xml
 ln -s "$HOME/Ubuntu One/config/shutter/settings.xml" $HOME/.shutter/settings.xml
+# xchat2 config
+echo 'Symlink XChat2 config..'
+if [[ ! -d $HOME/.xchat2 ]]; then
+    mkdir -p $HOME/.xchat2
+fi
+rm -f $HOME/.xchat2/servlist_.conf $HOME/.xchat2/xchat.conf
+ln -s "$HOME/Ubuntu One/config/xchat/servlist_.conf" $HOME/.xchat2/servlist_.conf
+ln -s "$HOME/Ubuntu One/config/xchat/xchat.conf" $HOME/.xchat2/xchat.conf
+# digikam config
+echo 'Symlink digiKam config..'
+if [[ ! -d $HOME/.kde/share/config ]]; then
+    mkdir -p $HOME/.kde/share/config
+fi
+rm -f $HOME/.kde/share/config/digikamrc
+ln -s "$HOME/Ubuntu One/config/digikam/digikamrc" $HOME/.kde/share/config/digikamrc
 echo 'Done.'
 main
 }
@@ -152,6 +178,10 @@ function gamesinstall {
 echo 'Requires root privileges:'
 echo 'Installing games...'
 sudo apt-get install --no-install-recommends gcompris supertuxkart tuxpaint tuxpaint-config
+# terminator config
+echo 'Symlink TuxPaint config..'
+rm -f $HOME/.tuxpaintrc
+ln -s "$HOME/Ubuntu One/config/tuxpaint/.tuxpaintrc" $HOME/.tuxpaintrc
 echo 'Done.'
 main
 }
@@ -220,9 +250,11 @@ if [ $INPUT -eq 1 ]; then
     ln -s "$HOME/Ubuntu One/config/git/gitconfig" $HOME/.gitconfig
     # Bazaar
     echo 'Symlink bazaar configs...'
-    rm -f $HOME/.bazaar/authentication.conf
+    if [[ ! -d $HOME/.bazaar ]]; then
+        mkdir -p $HOME/.bazaar
+    fi
+    rm -f $HOME/.bazaar/authentication.conf $HOME/.bazaar/bazaar.conf
     ln -s "$HOME/Ubuntu One/config/bazaar/authentication.conf" $HOME/.bazaar/authentication.conf
-    rm -f $HOME/.bazaar/bazaar.conf
     ln -s "$HOME/Ubuntu One/config/bazaar/bazaar.conf" $HOME/.bazaar/bazaar.conf
     echo 'Done.'
     devinstall
@@ -356,6 +388,9 @@ elif [ $INPUT -eq 9 ]; then
     sudo dpkg -i /tmp/sublime-text_build-3047_amd64.deb
     rm -f /tmp/sublime-text_build-3047_amd64.deb
     # symlink to own U1 user directory
+    if [[ ! -d $HOME/.config/sublime-text-3 ]]; then
+        mkdir -p $HOME/.config/sublime-text-3
+    fi
     rm -rf $HOME/.config/sublime-text-3/Packages/User
     ln -s "$HOME/Ubuntu One/config/sublimetext/User" $HOME/.config/sublime-text-3/Packages/User
     # install package manager from git
