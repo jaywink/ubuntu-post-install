@@ -22,6 +22,8 @@
 # You should have received a copy of the GNU General Public License along with
 # this program; if not, see <https://www.gnu.org/licenses/gpl-3.0.txt>
 
+set -e
+
 echo ''
 echo '#-------------------------------------------#'
 echo '#     Ubuntu 13.xx Post-Install Script      #'
@@ -82,7 +84,7 @@ sudo add-apt-repository -y ppa:peterlevi/ppa
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
 # libnet-dbus-glib-perl required by shutter + ubuntu one integration
-sudo apt-get install --no-install-recommends gimp gimp-plugin-registry dropbox xchat terminator digikam keepassx chromium-browser calibre qbittorrent shutter libnet-dbus-glib-perl my-weather-indicator diodon indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine
+sudo apt-get install gimp gimp-plugin-registry gimp-help-en-gb gimp-data-extras nautilus-dropbox xchat terminator digikam digikam-doc keepassx chromium-browser calibre qbittorrent shutter libnet-dbus-glib-perl my-weather-indicator diodon diodon-plugins indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine
 # Pidgin configuration
 echo "Setting Pidgin settings..."
 #quieten signon notifs
@@ -92,6 +94,9 @@ sed --in-place "s|<pref name='login' type='bool' value='1'/>|<pref name='login' 
 sed --in-place "s|<pref name='logout' type='bool' value='1'/>|<pref name='logout' type='bool' value='0'/>|" ~/.purple/prefs.xml
 sed --in-place "s|<pref name='send_im' type='bool' value='1'/>|<pref name='send_im' type='bool' value='0'/>|" ~/.purple/prefs.xml
 echo 'Make some installed apps startup automatically.'
+if [[ ! -d $HOME/.config/autostart ]]; then
+    mkdir -p $HOME/.config/autostart
+fi
 echo 'Dropbox...'
 [ -e /usr/share/applications/dropbox.desktop ] && [ -e ~/.config/autostart/dropbox.desktop ] || ln -s /usr/share/applications/dropbox.desktop ~/.config/autostart/dropbox.desktop
 echo 'Pidgin...'
@@ -168,7 +173,7 @@ main
 function toolinstall {
 echo 'Requires root privileges:'
 echo 'Installing system tools...'
-sudo apt-get install --no-install-recommends ppa-purge htop cups-pdf unzip zip
+sudo apt-get install htop cups-pdf curl
 echo 'Done.'
 main
 }
@@ -177,7 +182,7 @@ main
 function gamesinstall {
 echo 'Requires root privileges:'
 echo 'Installing games...'
-sudo apt-get install --no-install-recommends gcompris supertuxkart tuxpaint tuxpaint-config
+sudo apt-get install gcompris gcompris-sound-fi supertuxkart tuxpaint tuxpaint-config freeciv-client-gtk
 # terminator config
 echo 'Symlink TuxPaint config..'
 rm -f $HOME/.tuxpaintrc
@@ -208,6 +213,7 @@ echo ''
 while [ true ]
 do
 echo '1. Install development tools?'
+echo '2. Install Mozilla Addon SDK?'
 echo '3. Install Ubuntu Phablet Tools?'
 echo '0. Return'
 echo ''
@@ -225,24 +231,17 @@ if [ $INPUT -eq 1 ]; then
     sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld mysql-workbench nodejs ipython ipython-doc juju-core mongodb-server lxc python-setuptools python-dev giggle golang-go
     echo 'Install some Node modules...'
     sudo npm install -g bower
-    echo 'Installing PSS..'
-    sudo pip install -U pss
     echo 'Installing some extra Python stuff...'
     sudo easy_install pip
+    echo 'Installing virtualenvwrapper..'
     sudo pip install -U virtualenv virtualenvwrapper
     if [[ ! -d $HOME/.virtualenvs ]]; then
         mkdir $HOME/.virtualenvs
-        echo 'export WORKON_HOME=$HOME/.virtualenvs' >> $HOME/.bashrc
-        echo 'source /usr/local/bin/virtualenvwrapper.sh' >> $HOME/.bashrc
-        echo 'export PIP_VIRTUALENV_BASE=$WORKON_HOME' >> $HOME/.bashrc
-        source $HOME/.bashrc
     fi
+    echo 'Installing PSS..'
+    sudo pip install -U pss
     echo 'Installing Pythonz...'
     curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
-    if [[ `cat $HOME/.bashrc | grep pythonz | wc -l` -eq 0 ]]; then
-        echo '[[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc' >> $HOME/.bashrc
-        source $HOME/.bashrc
-    fi
     # Git
     echo 'Symlink git config...'
     # git config
@@ -256,13 +255,16 @@ if [ $INPUT -eq 1 ]; then
     rm -f $HOME/.bazaar/authentication.conf $HOME/.bazaar/bazaar.conf
     ln -s "$HOME/Ubuntu One/config/bazaar/authentication.conf" $HOME/.bazaar/authentication.conf
     ln -s "$HOME/Ubuntu One/config/bazaar/bazaar.conf" $HOME/.bazaar/bazaar.conf
+    # make sure nothing created a possibly non-existing tmp as root :P
+    MYNAME=`whoami`
+    sudo chown $MYNAME: /home/$MYNAME/tmp
     echo 'Done.'
     devinstall
 # Mozilla Addon SDK
 elif [ $INPUT -eq 2 ]; then
     echo 'Installing Mozilla Addon SDK..'
     cd $HOME/workspace
-    wget https://ftp.mozilla.org/pub/mozilla.org/labs/jetpack/jetpack-sdk-latest.zip -o jetpack-sdk-latest.zip
+    wget https://ftp.mozilla.org/pub/mozilla.org/labs/jetpack/jetpack-sdk-latest.zip -O jetpack-sdk-latest.zip
     unzip jetpack-sdk-latest.zip
     rm -f jetpack-sdk-latest.zip
     sed --in-place "s|<em:maxVersion>20.*</em:maxVersion>|<em:maxVersion>27.*</em:maxVersion>|" addon-sdk-1.14/app-extension/install.rdf
@@ -301,7 +303,6 @@ do
 echo '2. Install Google Talk Plugin?'
 echo '5. Install DVD playback tools?'
 echo '6. Install EasyShutdown?'
-echo '7. Install GetDeb games?'
 echo '9. Install Sublime Text?'
 echo '0. Return'
 echo ''
@@ -316,8 +317,6 @@ elif [ $INPUT -eq 2 ]; then
     # Make tmp directory
     if [ ! -d $HOME/tmp ]; then
         mkdir -p $HOME/tmp
-    else
-        continue
     fi
     cd $HOME/tmp
     # Download Debian file that matches system architecture
@@ -331,7 +330,7 @@ elif [ $INPUT -eq 2 ]; then
     sudo dpkg -i google*.deb
     sudo apt-get install -fy
     # Cleanup and finish
-    rm *.deb
+    rm -f google-talkplugin_current*
     cd
     echo 'Done.'
     thirdparty
@@ -365,15 +364,6 @@ elif [ $INPUT -eq 6 ]; then
     thirdparty
 # Empty
 elif [ $INPUT -eq 7 ]; then
-    echo 'Installing GetDeb and some games...'
-    echo 'Adding repository...'
-    echo 'Requires root privileges:'
-    wget http://archive.getdeb.net/install_deb/playdeb_0.3-1~getdeb1_all.deb -O /tmp/playdeb_0.3-1~getdeb1_all.deb
-    sudo dpkg --no-debsig -i /tmp/playdeb_0.3-1~getdeb1_all.deb
-    rm -f /tmp/playdeb_0.3-1~getdeb1_all.deb
-    sudo apt-get update -qq
-    echo 'Install FreeCiv...'
-    sudo apt-get install -y freeciv-client-gtk
     echo 'Done.'
     thirdparty
 # Empty
@@ -388,16 +378,19 @@ elif [ $INPUT -eq 9 ]; then
     sudo dpkg -i /tmp/sublime-text_build-3047_amd64.deb
     rm -f /tmp/sublime-text_build-3047_amd64.deb
     # symlink to own U1 user directory
-    if [[ ! -d $HOME/.config/sublime-text-3 ]]; then
-        mkdir -p $HOME/.config/sublime-text-3
+    if [[ ! -d $HOME/.config/sublime-text-3/Packages ]]; then
+        mkdir -p $HOME/.config/sublime-text-3/Packages
     fi
-    rm -rf $HOME/.config/sublime-text-3/Packages/User
+    if [[ -d $HOME/.config/sublime-text-3/Packages/User ]]; then
+        rm -rf $HOME/.config/sublime-text-3/Packages/User
+    fi
     ln -s "$HOME/Ubuntu One/config/sublimetext/User" $HOME/.config/sublime-text-3/Packages/User
     # install package manager from git
     cd $HOME/.config/sublime-text-3/Packages
     git clone https://github.com/wbond/sublime_package_control.git "Package Control"
-    cd "Package Control"
-    git checkout python3
+    #cd "Package Control"
+    #git fetch origin
+    #git checkout python3
     # Set default applications for mimetypes
     echo "Setting default applications for certain mimetypes..."
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -412,6 +405,7 @@ elif [ $INPUT -eq 9 ]; then
     python configure_default_app.py "application/xhtml+xml" sublime_text.desktop
     python configure_default_app.py "application/x-extension-xhtml" sublime_text.desktop
     python configure_default_app.py "text/x-python" sublime_text.desktop
+    cd
     echo 'Done.'
     thirdparty
 # Return
@@ -474,7 +468,7 @@ elif [ $INPUT -eq 2 ]; then
 # Bash aliases and settings
 elif [ $INPUT -eq 3 ]; then
     echo 'Setting some bash aliases and settings..'
-    if [[ 'cat $HOME/.bashrc | grep additionalrc | wc -l' -eq 0 ]]; then
+    if [[ 'cat $HOME/.bashrc | grep additionalrc | wc -l' = 0 ]]; then
         echo 'source "$HOME/Ubuntu One/config/bash/additionalrc"' >> $HOME/.bashrc
     fi    
     echo 'Done.'
@@ -517,7 +511,6 @@ if [ $INPUT -eq 1 ]; then
 # Remove Old Kernel
 elif [ $INPUT -eq 2 ]; then
     echo 'Removing old Kernel(s)...'
-    echo 'Requires root privileges:'
     sudo dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | grep -v linux-libc-dev | xargs sudo apt-get purge
     echo 'Done.'
     cleanup
@@ -550,17 +543,6 @@ else
     cleanup
 fi
 done
-}
-
-# END
-function end {
-echo ''
-read -p 'Are you sure you want to quit? (Y)es/(n)o '
-if [ '$REPLY' == 'n' ]; then
-    clear && main
-else
-    exit
-fi
 }
 
 #----- MAIN FUNCTION -----#
@@ -616,7 +598,7 @@ elif [ $INPUT -eq 9 ]; then
     clear && cleanup
 # End
 elif [ $INPUT -eq 10 ]; then
-    end
+    exit
 else
 # Invalid Choice
     echo 'Invalid, choose again.'
