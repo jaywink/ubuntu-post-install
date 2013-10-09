@@ -430,6 +430,7 @@ do
 echo '1. Set some generic application and environment settings?'
 echo '2. Set auto start of applications?'
 echo '3. Set some bash aliases and settings?'
+echo '4. Link to network drives?'
 echo '0. Return'
 echo ''
 read INPUT
@@ -468,9 +469,35 @@ elif [ $INPUT -eq 2 ]; then
 # Bash aliases and settings
 elif [ $INPUT -eq 3 ]; then
     echo 'Setting some bash aliases and settings..'
-    if [[ 'cat $HOME/.bashrc | grep additionalrc | wc -l' = 0 ]]; then
+    if [[ `cat $HOME/.bashrc | grep additionalrc | wc -l` -eq 0 ]]; then
         echo 'source "$HOME/Ubuntu One/config/bash/additionalrc"' >> $HOME/.bashrc
-    fi    
+    fi
+    echo 'Done.'
+    config
+# Link to network drives
+elif [ $INPUT -eq 4 ]; then
+    sudo apt-get install -y nfs-common
+    # create /backup folder
+    if [[ ! -d /backup ]]; then
+        sudo mkdir /backup
+        WHOAMI=`whoami`
+        sudo chown $WHOAMI: /backup
+    fi
+    # mount backup folder
+    if [[ `cat /etc/fstab | grep backup | wc -l` -eq 0 ]]; then
+        echo '192.168.1.37:/c/backup  /backup       nfs rw,hard,intr,rsize=32768,wsize=32768,tcp,nfsvers=3' | sudo tee -a /etc/fstab
+    fi
+    # create /lmedia folder
+    if [[ ! -d /lmedia ]]; then
+        sudo mkdir /lmedia
+        WHOAMI=`whoami`
+        sudo chown $WHOAMI: /lmedia
+    fi
+    # mount lmedia folder
+    if [[ `cat /etc/fstab | grep lmedia | wc -l` -eq 0 ]]; then
+        echo '192.168.1.37:/c/media  /lmedia        nfs rw,auto,bg,intr,soft,user 0 0' | sudo tee -a /etc/fstab
+    fi
+    sudo mount -a
     echo 'Done.'
     config
 # Return
