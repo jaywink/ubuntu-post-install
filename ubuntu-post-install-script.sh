@@ -228,7 +228,7 @@ if [ $INPUT -eq 1 ]; then
     sudo apt-get update -qq
     echo 'Installing development tools...'
     # mongodb-server,lxc for juju
-    sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld mysql-workbench nodejs ipython ipython-doc juju-core mongodb-server lxc python-setuptools python-dev giggle golang-go
+    sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld mysql-workbench nodejs ipython ipython-doc juju-core mongodb-server lxc python-setuptools python-dev giggle golang-go testdrive
     echo 'Install some Node modules...'
     sudo npm install -g bower
     echo 'Installing some extra Python stuff...'
