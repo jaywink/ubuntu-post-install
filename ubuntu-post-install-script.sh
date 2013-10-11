@@ -173,7 +173,7 @@ main
 function toolinstall {
 echo 'Requires root privileges:'
 echo 'Installing system tools...'
-sudo apt-get install htop cups-pdf curl
+sudo apt-get install htop cups-pdf curl virtualbox
 echo 'Done.'
 main
 }
