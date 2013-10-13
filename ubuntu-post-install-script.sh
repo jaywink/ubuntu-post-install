@@ -497,6 +497,16 @@ elif [ $INPUT -eq 4 ]; then
     if [[ `cat /etc/fstab | grep lmedia | wc -l` -eq 0 ]]; then
         echo '192.168.1.37:/c/media  /lmedia        nfs rw,auto,bg,intr,soft,user 0 0' | sudo tee -a /etc/fstab
     fi
+    # create /extras folder
+    if [[ ! -d /extras ]]; then
+        sudo mkdir /extras
+        WHOAMI=`whoami`
+        sudo chown $WHOAMI: /extras
+    fi
+    # mount extras folder
+    if [[ `cat /etc/fstab | grep bigboy | wc -l` -eq 0 ]]; then
+        echo '192.168.1.37:/c/bigboy  /extras        nfs rw,auto,bg,intr,soft,user 0 0' | sudo tee -a /etc/fstab
+    fi
     sudo mount -a
     echo 'Done.'
     config
