@@ -163,8 +163,12 @@ echo 'Symlink digiKam config..'
 if [[ ! -d $HOME/.kde/share/config ]]; then
     mkdir -p $HOME/.kde/share/config
 fi
-rm -f $HOME/.kde/share/config/digikamrc
+if [[ ! -d $HOME/.kde/apps/digikam ]]; then
+    mkdir -p $HOME/.kde/apps/digikam
+fi
+rm -f $HOME/.kde/share/config/digikamrc $HOME/.kde/apps/digikam/digikamui.rc
 ln -s "$HOME/Ubuntu One/config/digikam/digikamrc" $HOME/.kde/share/config/digikamrc
+ln -s "$HOME/Ubuntu One/config/digikam/digikamui.rc" $HOME/.kde/apps/digikam/digikamui.rc
 echo 'Done.'
 main
 }
