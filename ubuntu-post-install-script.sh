@@ -170,6 +170,13 @@ fi
 rm -f $HOME/.kde/share/config/digikamrc $HOME/.kde/apps/digikam/digikamui.rc
 ln -s "$HOME/Ubuntu One/config/digikam/digikamrc" $HOME/.kde/share/config/digikamrc
 ln -s "$HOME/Ubuntu One/config/digikam/digikamui.rc" $HOME/.kde/apps/digikam/digikamui.rc
+# qbittorrent config
+echo 'Symlink qBittorrent config..'
+if [[ ! -d $HOME/.config/qBittorrent ]]; then
+    mkdir -p $HOME/.config/qBittorrent
+fi
+rm -f $HOME/.config/qBittorrent/qBittorrent.conf
+ln -s "$HOME/Ubuntu One/config/qbittorrent/qBittorrent.conf" $HOME/.config/qBittorrent/qBittorrent.conf
 echo 'Done.'
 main
 }
