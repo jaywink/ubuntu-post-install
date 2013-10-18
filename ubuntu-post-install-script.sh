@@ -111,6 +111,7 @@ echo 'qBittorrent...'
 [ -e /usr/share/applications/qBittorrent.desktop ] && [ -e ~/.config/autostart/qbittorrent.desktop ] || ln -s /usr/share/applications/qBittorrent.desktop ~/.config/autostart/qbittorrent.desktop
 echo 'Shutter...'
 [ -e /usr/share/applications/shutter.desktop ] && [ -e ~/.config/autostart/shutter.desktop ] || ln -s /usr/share/applications/shutter.desktop ~/.config/autostart/shutter.desktop
+sed --in-place "s|Exec=shutter %F|Exec=shutter --min_at_startup %F|" ~/.config/autostart/shutter.desktop
 # terminator config
 echo 'Symlink Terminator config..'
 if [[ ! -d $HOME/.config/terminator ]]; then
