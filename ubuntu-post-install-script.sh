@@ -477,6 +477,8 @@ if [ $INPUT -eq 1 ]; then
     sudo sed --in-place "s|LC_TIME=\"fi_FI.UTF-8\"|LC_TIME=\"en_GB.UTF-8\"|" /etc/default/locale
     # Disable screen lock after timeout
     gsettings set org.gnome.desktop.screensaver lock-enabled false
+    # Set Unity launcher icon size to 32
+    gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ icon-size 32
     config
 # Startup Applications
 elif [ $INPUT -eq 2 ]; then
