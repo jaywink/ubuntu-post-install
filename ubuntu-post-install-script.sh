@@ -475,6 +475,8 @@ if [ $INPUT -eq 1 ]; then
     sudo apt-get install kde-l10n-engb libreoffice-help-en-gb libreoffice-l10n-en-gb gimp-help-en thunderbird-locale-en-gb libreoffice-lightproof-en
     sudo sed --in-place "s|LANG=\"en_US.UTF-8\"|LANG=\"en_GB.UTF-8\"|" /etc/default/locale
     sudo sed --in-place "s|LC_TIME=\"fi_FI.UTF-8\"|LC_TIME=\"en_GB.UTF-8\"|" /etc/default/locale
+    # Disable screen lock after timeout
+    gsettings set org.gnome.desktop.screensaver lock-enabled false
     config
 # Startup Applications
 elif [ $INPUT -eq 2 ]; then
