@@ -187,7 +187,7 @@ main
 function toolinstall {
 echo 'Requires root privileges:'
 echo 'Installing system tools...'
-sudo apt-get install htop cups-pdf curl virtualbox
+sudo apt-get install htop cups-pdf curl virtualbox software-properties-common
 echo 'Done.'
 main
 }
@@ -239,10 +239,15 @@ if [ $INPUT -eq 1 ]; then
     sudo add-apt-repository -y ppa:chris-lea/node.js
     echo 'Adding PPA for: Juju'
     sudo add-apt-repository -y ppa:juju/devel
+    echo 'Adding repository for MariaDB // note raring since saucy not available..'
+    sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db
+    sudo add-apt-repository 'deb http://mirror.netinch.com/pub/mariadb/repo/10.0/ubuntu raring main'
     sudo apt-get update -qq
     echo 'Installing development tools...'
     # mongodb-server,lxc for juju
-    sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld mysql-workbench nodejs ipython ipython-doc juju-core mongodb-server lxc python-setuptools python-dev giggle golang-go testdrive debhelper dpkg-dev pbuilder
+    sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld mysql-workbench nodejs ipython ipython-doc juju-core mongodb-server lxc python-setuptools python-dev giggle golang-go testdrive debhelper dpkg-dev pbuilder mariadb-server libmariadbclient-dev
+    # required to compile python-mysql using pip
+    sudo apt-get install -y libssl-dev libcrypto++-dev
     echo 'Install some Node modules...'
     sudo npm install -g bower
     echo 'Installing some extra Python stuff...'
@@ -254,6 +259,10 @@ if [ $INPUT -eq 1 ]; then
     fi
     echo 'Installing PSS..'
     sudo pip install -U pss
+    echo 'Install pep8..'
+    sudo pip install -U pep8 
+    echo 'Install pyflakes..'
+    sudo pip install -U pyflakes
     echo 'Installing Pythonz...'
     curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
     # Git
