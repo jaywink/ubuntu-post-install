@@ -518,7 +518,7 @@ elif [ $INPUT -eq 4 ]; then
     fi
     # mount backup folder
     if [[ `cat /etc/fstab | grep backup | wc -l` -eq 0 ]]; then
-        echo '192.168.1.37:/c/backup  /backup       nfs rw,hard,intr,rsize=32768,wsize=32768,tcp,nfsvers=3' | sudo tee -a /etc/fstab
+        echo '192.168.1.42:/c/backup  /backup       nfs rw,hard,intr,rsize=32768,wsize=32768,tcp,nfsvers=3' | sudo tee -a /etc/fstab
     fi
     # create /lmedia folder
     if [[ ! -d /lmedia ]]; then
@@ -528,7 +528,7 @@ elif [ $INPUT -eq 4 ]; then
     fi
     # mount lmedia folder
     if [[ `cat /etc/fstab | grep lmedia | wc -l` -eq 0 ]]; then
-        echo '192.168.1.37:/c/media  /lmedia        nfs rw,auto,bg,intr,soft,user 0 0' | sudo tee -a /etc/fstab
+        echo '192.168.1.42:/c/media  /lmedia        nfs rw,auto,bg,intr,soft,user 0 0' | sudo tee -a /etc/fstab
     fi
     # create /extras folder
     if [[ ! -d /extras ]]; then
@@ -538,7 +538,7 @@ elif [ $INPUT -eq 4 ]; then
     fi
     # mount extras folder
     if [[ `cat /etc/fstab | grep bigboy | wc -l` -eq 0 ]]; then
-        echo '192.168.1.37:/c/bigboy  /extras        nfs rw,auto,bg,intr,soft,user 0 0' | sudo tee -a /etc/fstab
+        echo '192.168.1.42:/c/bigboy  /extras        nfs rw,auto,bg,intr,soft,user 0 0' | sudo tee -a /etc/fstab
     fi
     sudo mount -a
     echo 'Done.'
