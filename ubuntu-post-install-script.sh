@@ -187,7 +187,7 @@ main
 function toolinstall {
 echo 'Requires root privileges:'
 echo 'Installing system tools...'
-sudo apt-get install htop cups-pdf curl virtualbox software-properties-common
+sudo apt-get install htop cups-pdf curl virtualbox software-properties-common wifi-radar
 echo 'Done.'
 main
 }
@@ -488,6 +488,8 @@ if [ $INPUT -eq 1 ]; then
     gsettings set org.gnome.desktop.screensaver lock-enabled false
     # Set Unity launcher icon size to 32
     gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ icon-size 32
+    # Custom touchpad settings (3 finger middle-click)
+    gsettings set org.gnome.settings-daemon.peripherals.input-devices hotplug-command "$HOME/Ubuntu One/config/touchpad/settings.sh"
     config
 # Startup Applications
 elif [ $INPUT -eq 2 ]; then
