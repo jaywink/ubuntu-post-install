@@ -86,7 +86,7 @@ sudo add-apt-repository -y ppa:maarten-baert/simplescreenrecorder
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
 # libnet-dbus-glib-perl required by shutter + ubuntu one integration
-sudo apt-get install gimp gimp-plugin-registry gimp-help-en-gb gimp-data-extras nautilus-dropbox xchat terminator digikam digikam-doc keepassx chromium-browser calibre qbittorrent shutter libnet-dbus-glib-perl my-weather-indicator diodon diodon-plugins indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine simplescreenrecorder
+sudo apt-get install gimp gimp-plugin-registry gimp-help-en-gb gimp-data-extras xchat terminator digikam digikam-doc keepassx chromium-browser calibre qbittorrent shutter libnet-dbus-glib-perl my-weather-indicator diodon diodon-plugins indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine simplescreenrecorder owncloud-client
 # Pidgin configuration
 echo "Setting Pidgin settings..."
 #quieten signon notifs
@@ -99,8 +99,6 @@ echo 'Make some installed apps startup automatically.'
 if [[ ! -d $HOME/.config/autostart ]]; then
     mkdir -p $HOME/.config/autostart
 fi
-echo 'Dropbox...'
-[ -e /usr/share/applications/dropbox.desktop ] && [ -e ~/.config/autostart/dropbox.desktop ] || ln -s /usr/share/applications/dropbox.desktop ~/.config/autostart/dropbox.desktop
 echo 'Pidgin...'
 [ -e /usr/share/applications/pidgin.desktop ] && [ -e ~/.config/autostart/pidgin.desktop ] || ln -s /usr/share/applications/pidgin.desktop ~/.config/autostart/pidgin.desktop
 echo 'Hamster Indicator...'
