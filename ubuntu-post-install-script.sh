@@ -187,7 +187,7 @@ main
 function toolinstall {
 echo 'Requires root privileges:'
 echo 'Installing system tools...'
-sudo apt-get install htop cups-pdf curl virtualbox software-properties-common wifi-radar vim
+sudo apt-get install htop cups-pdf curl virtualbox software-properties-common wifi-radar vim clusterssh
 echo 'Done.'
 main
 }
