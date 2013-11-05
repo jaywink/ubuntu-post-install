@@ -185,9 +185,11 @@ main
 
 # INSTALL SYSTEM TOOLS
 function toolinstall {
-echo 'Requires root privileges:'
+echo 'Adding PPA for solaar..'
+sudo apt-add-repository -y ppa:daniel.pavel/solaar
+sudo apt-get update -qq
 echo 'Installing system tools...'
-sudo apt-get install htop cups-pdf curl virtualbox software-properties-common wifi-radar vim clusterssh
+sudo apt-get install htop cups-pdf curl virtualbox software-properties-common wifi-radar vim clusterssh solaar
 echo 'Done.'
 main
 }
