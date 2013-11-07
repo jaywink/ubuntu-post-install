@@ -189,7 +189,7 @@ echo 'Adding PPA for solaar..'
 sudo apt-add-repository -y ppa:daniel.pavel/solaar
 sudo apt-get update -qq
 echo 'Installing system tools...'
-sudo apt-get install htop cups-pdf curl virtualbox software-properties-common wifi-radar vim clusterssh solaar
+sudo apt-get install htop cups-pdf curl virtualbox software-properties-common wifi-radar vim clusterssh solaar nfs-common
 echo 'Done.'
 main
 }
