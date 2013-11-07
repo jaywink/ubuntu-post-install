@@ -50,7 +50,7 @@ function addproposed {
 echo 'Requires root privileges:'
 echo 'Adding proposed repository - are you sure (y to accept)? Things could break...'
 read REPLY
-if [ '$REPLY' == 'y' ]; then
+if [ $REPLY == 'y' ]; then
     RELEASE=`lsb_release -sc`
     if [ `cat /etc/apt/sources.list | grep $RELEASE-proposed -c` -eq 0 ]; then
         echo 'Adding proposed repository'
