@@ -88,7 +88,7 @@ sudo add-apt-repository -y ppa:stebbins/handbrake-snapshots
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
 # libnet-dbus-glib-perl required by shutter + ubuntu one integration
-sudo apt-get install gimp gimp-plugin-registry gimp-help-en-gb gimp-data-extras xchat terminator digikam digikam-doc keepassx chromium-browser calibre qbittorrent shutter libnet-dbus-glib-perl my-weather-indicator diodon diodon-plugins indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine simplescreenrecorder owncloud-client handbrake-gtk handbrake-cli
+sudo apt-get install gimp gimp-plugin-registry gimp-help-en-gb gimp-data-extras xchat terminator digikam digikam-doc keepassx chromium-browser calibre qbittorrent shutter libnet-dbus-glib-perl my-weather-indicator diodon diodon-plugins indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird xul-ext-lightning vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine simplescreenrecorder owncloud-client handbrake-gtk handbrake-cli
 # Pidgin configuration
 echo "Setting Pidgin settings..."
 #quieten signon notifs
@@ -189,7 +189,7 @@ echo 'Adding PPA for solaar..'
 sudo apt-add-repository -y ppa:daniel.pavel/solaar
 sudo apt-get update -qq
 echo 'Installing system tools...'
-sudo apt-get install htop cups-pdf curl virtualbox software-properties-common wifi-radar vim clusterssh solaar nfs-common gnome-web-photo feh
+sudo apt-get install htop cups-pdf curl virtualbox software-properties-common wifi-radar vim clusterssh solaar nfs-common gnome-web-photo feh logstalgia
 echo 'Done.'
 main
 }
@@ -247,7 +247,7 @@ if [ $INPUT -eq 1 ]; then
     sudo apt-get update -qq
     echo 'Installing development tools...'
     # mongodb-server,lxc for juju
-    sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld mysql-workbench nodejs ipython ipython-doc juju-core mongodb-server lxc python-setuptools python-dev giggle golang-go testdrive debhelper dpkg-dev pbuilder mariadb-server libmariadbclient-dev
+    sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld mysql-workbench nodejs ipython ipython-doc juju-core juju-local mongodb-server lxc python-setuptools python-dev giggle golang-go testdrive debhelper dpkg-dev pbuilder mariadb-server libmariadbclient-dev
     # required to compile python-mysql using pip
     sudo apt-get install -y libssl-dev libcrypto++-dev
     echo 'Install some Node modules...'
