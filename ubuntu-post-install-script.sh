@@ -179,6 +179,10 @@ if [[ ! -d $HOME/.config/qBittorrent ]]; then
 fi
 rm -f $HOME/.config/qBittorrent/qBittorrent.conf
 ln -s "$HOME/Ubuntu One/config/qbittorrent/qBittorrent.conf" $HOME/.config/qBittorrent/qBittorrent.conf
+# vim config
+echo 'Symlink vim config..'
+rm -f $HOME/.vimrc
+ln -s "$HOME/Ubuntu One/config/vim/vimrc" $HOME/.vimrc
 echo 'Done.'
 main
 }
