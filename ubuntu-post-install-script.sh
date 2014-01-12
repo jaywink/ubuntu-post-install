@@ -307,7 +307,7 @@ elif [ $INPUT -eq 3 ]; then
     echo 'Updating repository information...'
     sudo apt-get update -qq
     echo 'Installing Ubuntu SDK...'
-    sudo apt-get install phablet-tools
+    sudo apt-get install phablet-tools android-tools-adb android-tools-fastboot
     echo 'Done.'
     devinstall
 # Return
