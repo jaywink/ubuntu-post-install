@@ -246,8 +246,8 @@ if [ $INPUT -eq 1 ]; then
     echo 'Adding PPA for: Juju'
     sudo add-apt-repository -y ppa:juju/devel
     echo 'Adding repository for MariaDB // note raring since saucy not available..'
-    sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db
-    sudo add-apt-repository 'deb http://mirror.netinch.com/pub/mariadb/repo/10.0/ubuntu raring main'
+    sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
+    sudo add-apt-repository 'deb http://mirror.netinch.com/pub/mariadb/repo/10.0/ubuntu saucy main'
     sudo apt-get update -qq
     echo 'Installing development tools...'
     # mongodb-server,lxc for juju
