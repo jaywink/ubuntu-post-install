@@ -373,12 +373,9 @@ elif [ $INPUT -eq 4 ]; then
     thirdparty
 # Medibuntu
 elif [ $INPUT -eq 5 ]; then
-    echo 'Adding Medibuntu repository to sources...'
-    echo 'Requires root privileges:'
-    sudo -E wget --output-document=/etc/apt/sources.list.d/medibuntu.list http://www.medibuntu.org/sources.list.d/$(lsb_release -cs).list && sudo apt-get update -qq && sudo apt-get --yes --quiet --allow-unauthenticated install medibuntu-keyring && sudo apt-get update -qq
-    echo 'Done.'
-    echo 'Installing libdvdcss2...'
-    sudo apt-get install -y libdvdcss2
+    echo 'Installing libdvdread4...'
+    sudo apt-get install -y libdvdread4
+    sudo /usr/share/doc/libdvdread4/install-css.sh
     echo 'Done.'
     thirdparty
 # EasyShutdown
