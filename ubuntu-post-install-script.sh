@@ -87,8 +87,7 @@ echo 'Adding PPA for Handbrake'
 sudo add-apt-repository -y ppa:stebbins/handbrake-snapshots
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
-# libnet-dbus-glib-perl required by shutter + ubuntu one integration
-sudo apt-get install gimp gimp-plugin-registry gimp-help-en-gb gimp-data-extras xchat terminator digikam digikam-doc keepassx chromium-browser calibre qbittorrent shutter libnet-dbus-glib-perl my-weather-indicator diodon diodon-plugins indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird xul-ext-lightning vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine simplescreenrecorder owncloud-client handbrake-gtk handbrake-cli asunder
+sudo apt-get install gimp gimp-plugin-registry gimp-help-en-gb gimp-data-extras xchat terminator digikam digikam-doc keepassx chromium-browser calibre qbittorrent shutter my-weather-indicator diodon diodon-plugins indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird xul-ext-lightning vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine simplescreenrecorder owncloud-client handbrake-gtk handbrake-cli asunder
 # Pidgin configuration
 echo "Setting Pidgin settings..."
 #quieten signon notifs
@@ -120,21 +119,21 @@ if [[ ! -d $HOME/.config/terminator ]]; then
     mkdir -p $HOME/.config/terminator
 fi
 rm -f $HOME/.config/terminator/config
-ln -s "$HOME/Ubuntu One/config/terminator/config" $HOME/.config/terminator/config
+ln -s "$HOME/ownCloud/config/terminator/config" $HOME/.config/terminator/config
 # clementine config
 echo 'Symlink Clementine config and db..'
 if [[ ! -d $HOME/.config/Clementine ]]; then
     mkdir -p $HOME/.config/Clementine
 fi
 rm -f $HOME/.config/Clementine/Clementine.conf
-ln -s "$HOME/Ubuntu One/config/clementine/Clementine.conf" $HOME/.config/Clementine/Clementine.conf
+ln -s "$HOME/ownCloud/config/clementine/Clementine.conf" $HOME/.config/Clementine/Clementine.conf
 # my-weather-indicator config
 echo 'Symlink My Weather Indicator config..'
 if [[ ! -d $HOME/.config/my-weather-indicator ]]; then
     mkdir -p $HOME/.config/my-weather-indicator
 fi
 rm -f $HOME/.config/my-weather-indicator/my-weather-indicator.conf
-ln -s "$HOME/Ubuntu One/config/my-weather-indicator/my-weather-indicator.conf" $HOME/.config/my-weather-indicator/my-weather-indicator.conf
+ln -s "$HOME/ownCloud/config/my-weather-indicator/my-weather-indicator.conf" $HOME/.config/my-weather-indicator/my-weather-indicator.conf
 # variety config
 echo 'Symlink Variety configs and favourites..'
 if [[ ! -d $HOME/.config/variety ]]; then
@@ -142,25 +141,25 @@ if [[ ! -d $HOME/.config/variety ]]; then
 fi
 rm -f $HOME/.config/variety/banned.txt $HOME/.config/variety/variety.conf
 rm -rf $HOME/.config/variety/Favorites
-ln -s "$HOME/Ubuntu One/config/variety/banned.txt" $HOME/.config/variety/banned.txt
-ln -s "$HOME/Ubuntu One/config/variety/variety.conf" $HOME/.config/variety/variety.conf
-ln -s "$HOME/Ubuntu One/config/variety/Favorites" $HOME/.config/variety/Favorites
+ln -s "$HOME/ownCloud/config/variety/banned.txt" $HOME/.config/variety/banned.txt
+ln -s "$HOME/ownCloud/config/variety/variety.conf" $HOME/.config/variety/variety.conf
+ln -s "$HOME/ownCloud/config/variety/Favorites" $HOME/.config/variety/Favorites
 # shutter config
 echo 'Symlink Shutter configs..'
 if [[ ! -d $HOME/.shutter ]]; then
     mkdir -p $HOME/.shutter
 fi
 rm -f $HOME/.shutter/accounts.xml $HOME/.shutter/settings.xml
-ln -s "$HOME/Ubuntu One/config/shutter/accounts.xml" $HOME/.shutter/accounts.xml
-ln -s "$HOME/Ubuntu One/config/shutter/settings.xml" $HOME/.shutter/settings.xml
+ln -s "$HOME/ownCloud/config/shutter/accounts.xml" $HOME/.shutter/accounts.xml
+ln -s "$HOME/ownCloud/config/shutter/settings.xml" $HOME/.shutter/settings.xml
 # xchat2 config
 echo 'Symlink XChat2 config..'
 if [[ ! -d $HOME/.xchat2 ]]; then
     mkdir -p $HOME/.xchat2
 fi
 rm -f $HOME/.xchat2/servlist_.conf $HOME/.xchat2/xchat.conf
-ln -s "$HOME/Ubuntu One/config/xchat/servlist_.conf" $HOME/.xchat2/servlist_.conf
-ln -s "$HOME/Ubuntu One/config/xchat/xchat.conf" $HOME/.xchat2/xchat.conf
+ln -s "$HOME/ownCloud/config/xchat/servlist_.conf" $HOME/.xchat2/servlist_.conf
+ln -s "$HOME/ownCloud/config/xchat/xchat.conf" $HOME/.xchat2/xchat.conf
 # digikam config
 echo 'Symlink digiKam config..'
 if [[ ! -d $HOME/.kde/share/config ]]; then
@@ -170,19 +169,19 @@ if [[ ! -d $HOME/.kde/apps/digikam ]]; then
     mkdir -p $HOME/.kde/apps/digikam
 fi
 rm -f $HOME/.kde/share/config/digikamrc $HOME/.kde/apps/digikam/digikamui.rc
-ln -s "$HOME/Ubuntu One/config/digikam/digikamrc" $HOME/.kde/share/config/digikamrc
-ln -s "$HOME/Ubuntu One/config/digikam/digikamui.rc" $HOME/.kde/apps/digikam/digikamui.rc
+ln -s "$HOME/ownCloud/config/digikam/digikamrc" $HOME/.kde/share/config/digikamrc
+ln -s "$HOME/ownCloud/config/digikam/digikamui.rc" $HOME/.kde/apps/digikam/digikamui.rc
 # qbittorrent config
 echo 'Symlink qBittorrent config..'
 if [[ ! -d $HOME/.config/qBittorrent ]]; then
     mkdir -p $HOME/.config/qBittorrent
 fi
 rm -f $HOME/.config/qBittorrent/qBittorrent.conf
-ln -s "$HOME/Ubuntu One/config/qbittorrent/qBittorrent.conf" $HOME/.config/qBittorrent/qBittorrent.conf
+ln -s "$HOME/ownCloud/config/qbittorrent/qBittorrent.conf" $HOME/.config/qBittorrent/qBittorrent.conf
 # vim config
 echo 'Symlink vim config..'
 rm -f $HOME/.vimrc
-ln -s "$HOME/Ubuntu One/config/vim/vimrc" $HOME/.vimrc
+ln -s "$HOME/ownCloud/config/vim/vimrc" $HOME/.vimrc
 echo 'Done.'
 main
 }
@@ -193,7 +192,7 @@ echo 'Adding PPA for solaar..'
 sudo apt-add-repository -y ppa:daniel.pavel/solaar
 sudo apt-get update -qq
 echo 'Installing system tools...'
-sudo apt-get install htop cups-pdf curl virtualbox software-properties-common wifi-radar vim clusterssh solaar nfs-common gnome-web-photo feh logstalgia soundconverter
+sudo apt-get install htop cups-pdf curl virtualbox software-properties-common wifi-radar vim clusterssh solaar nfs-common gnome-web-photo feh logstalgia soundconverter autossh
 echo 'Done.'
 main
 }
@@ -202,11 +201,11 @@ main
 function gamesinstall {
 echo 'Requires root privileges:'
 echo 'Installing games...'
-sudo apt-get install gcompris gcompris-sound-fi supertuxkart tuxpaint tuxpaint-config freeciv-client-gtk
+sudo apt-get install gcompris gcompris-sound-fi supertuxkart tuxpaint tuxpaint-config freeciv-client-gtk steam
 # terminator config
 echo 'Symlink TuxPaint config..'
 rm -f $HOME/.tuxpaintrc
-ln -s "$HOME/Ubuntu One/config/tuxpaint/.tuxpaintrc" $HOME/.tuxpaintrc
+ln -s "$HOME/ownCloud/config/tuxpaint/.tuxpaintrc" $HOME/.tuxpaintrc
 echo 'Done.'
 main
 }
@@ -245,7 +244,7 @@ if [ $INPUT -eq 1 ]; then
     sudo add-apt-repository -y ppa:chris-lea/node.js
     echo 'Adding PPA for: Juju'
     sudo add-apt-repository -y ppa:juju/devel
-    echo 'Adding repository for MariaDB // note raring since saucy not available..'
+    echo 'Adding repository for MariaDB'
     sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
     sudo add-apt-repository 'deb http://mirror.netinch.com/pub/mariadb/repo/10.0/ubuntu saucy main'
     sudo apt-get update -qq
@@ -275,15 +274,15 @@ if [ $INPUT -eq 1 ]; then
     echo 'Symlink git config...'
     # git config
     rm -f $HOME/.gitconfig
-    ln -s "$HOME/Ubuntu One/config/git/gitconfig" $HOME/.gitconfig
+    ln -s "$HOME/ownCloud/config/git/gitconfig" $HOME/.gitconfig
     # Bazaar
     echo 'Symlink bazaar configs...'
     if [[ ! -d $HOME/.bazaar ]]; then
         mkdir -p $HOME/.bazaar
     fi
     rm -f $HOME/.bazaar/authentication.conf $HOME/.bazaar/bazaar.conf
-    ln -s "$HOME/Ubuntu One/config/bazaar/authentication.conf" $HOME/.bazaar/authentication.conf
-    ln -s "$HOME/Ubuntu One/config/bazaar/bazaar.conf" $HOME/.bazaar/bazaar.conf
+    ln -s "$HOME/ownCloud/config/bazaar/authentication.conf" $HOME/.bazaar/authentication.conf
+    ln -s "$HOME/ownCloud/config/bazaar/bazaar.conf" $HOME/.bazaar/bazaar.conf
     # make sure nothing created a possibly non-existing tmp as root :P
     MYNAME=`whoami`
     sudo chown $MYNAME: /home/$MYNAME/tmp
@@ -410,7 +409,7 @@ elif [ $INPUT -eq 9 ]; then
     if [[ -d $HOME/.config/sublime-text-3/Packages/User ]]; then
         rm -rf $HOME/.config/sublime-text-3/Packages/User
     fi
-    ln -s "$HOME/Ubuntu One/config/sublimetext/User" $HOME/.config/sublime-text-3/Packages/User
+    ln -s "$HOME/ownCloud/config/sublimetext/User" $HOME/.config/sublime-text-3/Packages/User
     # install package manager from git
     cd $HOME/.config/sublime-text-3/Packages
     git clone https://github.com/wbond/sublime_package_control.git "Package Control"
@@ -480,9 +479,9 @@ if [ $INPUT -eq 1 ]; then
         mkdir $HOME/.ssh
     fi
     rm -f $HOME/.ssh/config $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub
-    ln -s "$HOME/Ubuntu One/config/ssh/config" $HOME/.ssh/config
-    ln -s "$HOME/Ubuntu One/config/ssh/id_rsa" $HOME/.ssh/id_rsa
-    ln -s "$HOME/Ubuntu One/config/ssh/id_rsa.pub" $HOME/.ssh/id_rsa.pub
+    ln -s "$HOME/ownCloud/config/ssh/config" $HOME/.ssh/config
+    ln -s "$HOME/ownCloud/config/ssh/id_rsa" $HOME/.ssh/id_rsa
+    ln -s "$HOME/ownCloud/config/ssh/id_rsa.pub" $HOME/.ssh/id_rsa.pub
     # Language and locale
     sudo apt-get install kde-l10n-engb libreoffice-help-en-gb libreoffice-l10n-en-gb gimp-help-en thunderbird-locale-en-gb libreoffice-lightproof-en
     sudo sed --in-place "s|LANG=\"en_US.UTF-8\"|LANG=\"en_GB.UTF-8\"|" /etc/default/locale
@@ -492,7 +491,7 @@ if [ $INPUT -eq 1 ]; then
     # Set Unity launcher icon size to 32
     gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ icon-size 32
     # Custom touchpad settings (3 finger middle-click)
-    gsettings set org.gnome.settings-daemon.peripherals.input-devices hotplug-command "$HOME/Ubuntu One/config/touchpad/settings.sh"
+    gsettings set org.gnome.settings-daemon.peripherals.input-devices hotplug-command "$HOME/ownCloud/config/touchpad/settings.sh"
     config
 # Startup Applications
 elif [ $INPUT -eq 2 ]; then
@@ -506,7 +505,7 @@ elif [ $INPUT -eq 2 ]; then
 elif [ $INPUT -eq 3 ]; then
     echo 'Setting some bash aliases and settings..'
     if [[ `cat $HOME/.bashrc | grep additionalrc | wc -l` -eq 0 ]]; then
-        echo 'source "$HOME/Ubuntu One/config/bash/additionalrc"' >> $HOME/.bashrc
+        echo 'source "$HOME/ownCloud/config/bash/additionalrc"' >> $HOME/.bashrc
     fi
     echo 'Done.'
     config
