@@ -25,9 +25,9 @@
 set -e
 
 echo ''
-echo '#-------------------------------------------#'
-echo '#     Ubuntu 13.xx Post-Install Script      #'
-echo '#-------------------------------------------#'
+echo '#-------------------------------------------------#'
+echo '#     Ubuntu 13.xx-14.04 Post-Install Script      #'
+echo '#-------------------------------------------------#'
 
 #----- FUNCTIONS -----#
 
@@ -248,7 +248,7 @@ if [ $INPUT -eq 1 ]; then
     sudo add-apt-repository -y ppa:juju/devel
     echo 'Adding repository for MariaDB'
     sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
-    sudo add-apt-repository 'deb http://mirror.netinch.com/pub/mariadb/repo/10.0/ubuntu saucy main'
+    sudo add-apt-repository 'deb http://mirror.netinch.com/pub/mariadb/repo/10.0/ubuntu `lsb_release -sc` main'
     echo 'Adding PPA for: Atom'
     sudo add-apt-repository -y ppa:webupd8team/atom
     sudo apt-get update -qq
