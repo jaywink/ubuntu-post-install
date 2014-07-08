@@ -587,8 +587,13 @@ if [ $INPUT -eq 1 ]; then
 # Remove Old Kernel
 elif [ $INPUT -eq 2 ]; then
     echo 'Removing old Kernel(s)...'
-    sudo dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | grep -v linux-libc-dev | xargs sudo apt-get purge
-    echo 'Done.'
+    dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | grep -v linux-libc-dev
+    echo 'Do you want to continue? (y to continue)'
+    read OK
+    if [ $OK == "y" ]; then
+        sudo dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | grep -v linux-libc-dev | xargs sudo apt-get -y purge
+        echo 'Done.'
+    fi
     cleanup
 # Remove Orphaned Packages
 elif [ $INPUT -eq 3 ]; then
