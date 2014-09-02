@@ -87,9 +87,11 @@ echo 'Adding PPA for Handbrake'
 sudo add-apt-repository -y ppa:stebbins/handbrake-snapshots
 echo 'Adding PPA for Pinta'
 sudo add-apt-repository -y ppa:pinta-maintainers/pinta-stable
+echo 'Adding Kubuntu backports PPA'
+sudo add-apt-repository -y ppa:kubuntu-ppa/backports
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
-sudo apt-get install gimp gimp-plugin-registry gimp-help-en-gb gimp-data-extras xchat terminator digikam digikam-doc keepassx chromium-browser calibre qbittorrent shutter my-weather-indicator diodon diodon-plugins indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird xul-ext-lightning vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine simplescreenrecorder owncloud-client handbrake-gtk handbrake-cli asunder pinta
+sudo apt-get install gimp gimp-plugin-registry gimp-help-en-gb gimp-data-extras xchat terminator digikam digikam-doc keepassx chromium-browser calibre qbittorrent shutter my-weather-indicator diodon indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird xul-ext-lightning vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine simplescreenrecorder owncloud-client handbrake-gtk handbrake-cli asunder pinta krita
 # Pidgin configuration
 echo "Setting Pidgin settings..."
 #quieten signon notifs
@@ -248,7 +250,7 @@ if [ $INPUT -eq 1 ]; then
     sudo add-apt-repository -y ppa:juju/devel
     echo 'Adding repository for MariaDB'
     sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
-    sudo add-apt-repository 'deb http://mirror.netinch.com/pub/mariadb/repo/10.0/ubuntu `lsb_release -sc` main'
+    sudo add-apt-repository "deb http://mirror.netinch.com/pub/mariadb/repo/10.0/ubuntu `lsb_release -sc` main"
     echo 'Adding PPA for: Atom'
     sudo add-apt-repository -y ppa:webupd8team/atom
     sudo apt-get update -qq
@@ -403,9 +405,9 @@ elif [ $INPUT -eq 8 ]; then
 elif [ $INPUT -eq 9 ]; then
     echo 'Installing Sublime Text...'
     echo 'Requires root privileges:'
-    wget http://c758482.r82.cf2.rackcdn.com/sublime-text_build-3047_amd64.deb -O /tmp/sublime-text_build-3047_amd64.deb
-    sudo dpkg -i /tmp/sublime-text_build-3047_amd64.deb
-    rm -f /tmp/sublime-text_build-3047_amd64.deb
+    wget http://c758482.r82.cf2.rackcdn.com/sublime-text_build-3059_amd64.deb -O /tmp/sublime-text_build-3059_amd64.deb
+    sudo dpkg -i /tmp/sublime-text_build-3059_amd64.deb
+    rm -f /tmp/sublime-text_build-3059_amd64.deb
     # symlink to own U1 user directory
     if [[ ! -d $HOME/.config/sublime-text-3/Packages ]]; then
         mkdir -p $HOME/.config/sublime-text-3/Packages
@@ -524,7 +526,7 @@ elif [ $INPUT -eq 4 ]; then
     fi
     # mount backup folder
     if [[ `cat /etc/fstab | grep backup | wc -l` -eq 0 ]]; then
-        echo '192.168.1.42:/c/backup  /backup       nfs rw,hard,intr,rsize=32768,wsize=32768,tcp,nfsvers=3' | sudo tee -a /etc/fstab
+        echo '192.168.1.42:/c/backup  /backup       nfs rw,auto,bg,intr,soft,user 0 0' | sudo tee -a /etc/fstab
     fi
     # create /lmedia folder
     if [[ ! -d /lmedia ]]; then
