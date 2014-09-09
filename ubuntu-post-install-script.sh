@@ -275,6 +275,8 @@ if [ $INPUT -eq 1 ]; then
     echo 'Install pyflakes..'
     sudo pip install -U pyflakes
     echo 'Installing Pythonz...'
+    echo 'Some dependencies first..'
+    sudo apt-get install -y libz-dev libbz2-dev libreadline-dev libsqlite3-dev libncurses5-dev libgdbm-dev
     curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
     # Git
     echo 'Symlink git config...'
