@@ -418,12 +418,10 @@ elif [ $INPUT -eq 9 ]; then
         rm -rf $HOME/.config/sublime-text-3/Packages/User
     fi
     ln -s "$HOME/ownCloud/config/sublimetext/User" $HOME/.config/sublime-text-3/Packages/User
-    # install package manager from git
+    # install some packages from git
     cd $HOME/.config/sublime-text-3/Packages
     git clone https://github.com/wbond/sublime_package_control.git "Package Control"
-    #cd "Package Control"
-    #git fetch origin
-    #git checkout python3
+    git clone git://github.com/jisaacks/GitGutter.git
     # Set default applications for mimetypes
     echo "Setting default applications for certain mimetypes..."
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
