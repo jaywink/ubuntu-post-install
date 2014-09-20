@@ -247,7 +247,7 @@ if [ $INPUT -eq 1 ]; then
     echo 'Adding PPA for: Node.js'
     sudo add-apt-repository -y ppa:chris-lea/node.js
     echo 'Adding PPA for: Juju'
-    sudo add-apt-repository -y ppa:juju/devel
+    sudo add-apt-repository -y ppa:juju/stable
     echo 'Adding repository for MariaDB'
     sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
     sudo add-apt-repository "deb http://mirror.netinch.com/pub/mariadb/repo/10.0/ubuntu `lsb_release -sc` main"
@@ -256,7 +256,7 @@ if [ $INPUT -eq 1 ]; then
     sudo apt-get update -qq
     echo 'Installing development tools...'
     # mongodb-server,lxc for juju
-    sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld mysql-workbench nodejs ipython ipython-doc juju-core juju-local mongodb-server lxc python-setuptools python-dev giggle golang-go testdrive debhelper dpkg-dev pbuilder mariadb-server libmariadbclient-dev atom
+    sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld mysql-workbench nodejs ipython ipython-doc juju-core juju-local amulet mongodb-server lxc python-setuptools python-dev giggle golang-go testdrive debhelper dpkg-dev pbuilder mariadb-server libmariadbclient-dev atom python-testtools python-fixtures
     # required to compile python-mysql using pip
     sudo apt-get install -y libssl-dev libcrypto++-dev
     echo 'Install some Node modules...'
