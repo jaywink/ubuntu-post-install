@@ -294,6 +294,11 @@ if [ $INPUT -eq 1 ]; then
     # make sure nothing created a possibly non-existing tmp as root :P
     MYNAME=`whoami`
     sudo chown $MYNAME: /home/$MYNAME/tmp
+    # Charmhelpers
+    echo 'Charmhelpers & charm_helpers_sync tool'
+    cd $HOME/workspace
+    bzr branch lp:charm-helpers
+    sudo ln -s /home/$MYNAME/workspace/charm-helpers/tools/charm_helpers_sync/charm_helpers_sync.py /usr/local/bin/charm_helpers_sync.py 
     echo 'Done.'
     devinstall
 # Mozilla Addon SDK
