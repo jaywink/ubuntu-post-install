@@ -263,6 +263,7 @@ if [ $INPUT -eq 1 ]; then
     sudo npm install -g bower
     echo 'Installing some extra Python stuff...'
     sudo easy_install pip
+    sudo pip install pip-tools
     echo 'Installing virtualenvwrapper..'
     sudo pip install -U virtualenv virtualenvwrapper
     if [[ ! -d $HOME/.virtualenvs ]]; then
