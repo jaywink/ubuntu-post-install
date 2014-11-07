@@ -89,6 +89,8 @@ echo 'Adding PPA for Pinta'
 sudo add-apt-repository -y ppa:pinta-maintainers/pinta-stable
 echo 'Adding Kubuntu backports PPA'
 sudo add-apt-repository -y ppa:kubuntu-ppa/backports
+echo 'Adding Clementine stable PPA'
+sudo add-apt-repository -y ppa:me-davidsansome/clementine
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
 sudo apt-get install gimp gimp-plugin-registry gimp-help-en-gb gimp-data-extras xchat terminator digikam digikam-doc keepassx chromium-browser calibre qbittorrent shutter my-weather-indicator diodon indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird xul-ext-lightning vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine simplescreenrecorder owncloud-client handbrake-gtk handbrake-cli asunder pinta krita
