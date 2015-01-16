@@ -103,7 +103,7 @@ if [ $INPUT -eq 1 ]; then
     sudo apt-get update -qq
     echo 'Installing development tools...'
     # mongodb-server,lxc for juju
-    sudo apt-get install git ruby build-essential nodejs python-setuptools python-dev
+    sudo apt-get install git ruby build-essential nodejs python-setuptools python-dev python-yaml
     # required to compile python-mysql using pip
     sudo apt-get install -y libssl-dev libcrypto++-dev
     echo 'Install some Node modules...'
