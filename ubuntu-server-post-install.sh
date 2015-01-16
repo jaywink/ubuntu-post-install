@@ -96,16 +96,14 @@ echo ''
 read INPUT
 # Install Development Tools
 if [ $INPUT -eq 1 ]; then
-    echo 'Requires root privileges:'
+    sudo apt-get install software-properties-common
+    sudo dpkg-reconfigure unattended-upgrades
     echo 'Adding PPA for: Node.js'
     sudo add-apt-repository -y ppa:chris-lea/node.js
-    echo 'Adding repository for MariaDB // note raring since saucy not available..'
-    sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db
-    sudo add-apt-repository 'deb http://mirror.netinch.com/pub/mariadb/repo/10.0/ubuntu raring main'
     sudo apt-get update -qq
     echo 'Installing development tools...'
     # mongodb-server,lxc for juju
-    sudo apt-get install git ruby build-essential nodejs python-setuptools python-dev mariadb-server libmariadbclient-dev
+    sudo apt-get install git ruby build-essential nodejs python-setuptools python-dev
     # required to compile python-mysql using pip
     sudo apt-get install -y libssl-dev libcrypto++-dev
     echo 'Install some Node modules...'
@@ -120,7 +118,7 @@ if [ $INPUT -eq 1 ]; then
     echo 'Installing PSS..'
     sudo pip install -U pss
     echo 'Install pep8..'
-    sudo pip install -U pep8 
+    sudo pip install -U pep8
     echo 'Install pyflakes..'
     sudo pip install -U pyflakes
     echo 'Installing Pythonz...'
