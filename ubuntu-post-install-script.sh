@@ -91,9 +91,13 @@ echo 'Adding Kubuntu backports PPA'
 sudo add-apt-repository -y ppa:kubuntu-ppa/backports
 echo 'Adding Clementine stable PPA'
 sudo add-apt-repository -y ppa:me-davidsansome/clementine
+echo 'Adding ownCloud repo'
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/xUbuntu_14.10/ /' >> /etc/apt/sources.list.d/owncloud-client.list"
+wget http://download.opensuse.org/repositories/isv:ownCloud:desktop/xUbuntu_14.10/Release.key -O /tmp/owncloud.key
+sudo apt-key add - < /tmp/owncloud.key
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
-sudo apt-get install gimp gimp-plugin-registry gimp-help-en-gb gimp-data-extras xchat terminator digikam digikam-doc keepassx chromium-browser calibre qbittorrent shutter my-weather-indicator diodon indicator-multiload hamster-applet hamster-indicator y-ppa-manager compizconfig-settings-manager thunderbird xul-ext-lightning vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine simplescreenrecorder owncloud-client handbrake-gtk handbrake-cli asunder pinta krita
+sudo apt-get install gimp gimp-plugin-registry gimp-data-extras xchat terminator digikam digikam-doc keepassx chromium-browser calibre qbittorrent shutter diodon indicator-multiload y-ppa-manager compizconfig-settings-manager thunderbird xul-ext-lightning vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine simplescreenrecorder owncloud-client handbrake-gtk handbrake-cli asunder pinta krita
 # Pidgin configuration
 echo "Setting Pidgin settings..."
 #quieten signon notifs
@@ -108,12 +112,8 @@ if [[ ! -d $HOME/.config/autostart ]]; then
 fi
 echo 'Pidgin...'
 [ -e /usr/share/applications/pidgin.desktop ] && [ -e ~/.config/autostart/pidgin.desktop ] || ln -s /usr/share/applications/pidgin.desktop ~/.config/autostart/pidgin.desktop
-echo 'Hamster Indicator...'
-[ -e /usr/share/applications/hamster-indicator.desktop ] && [ -e ~/.config/autostart/hamster-indicator.desktop ] || ln -s /usr/share/applications/hamster-indicator.desktop ~/.config/autostart/hamster-indicator.desktop
 echo 'Indicator Multiload...'
 [ -e /usr/share/applications/indicator-multiload.desktop ] && [ -e ~/.config/autostart/indicator-multiload.desktop ] || ln -s /usr/share/applications/indicator-multiload.desktop ~/.config/autostart/indicator-multiload.desktop
-echo 'My Weather Indicator...'
-[ -e /opt/extras.ubuntu.com/my-weather-indicator/share/my-weather-indicator/my-weather-indicator-autostart.desktop ] && [ -e ~/.config/autostart/my-weather-indicator-autostart.desktop ] || ln -s /opt/extras.ubuntu.com/my-weather-indicator/share/my-weather-indicator/my-weather-indicator-autostart.desktop ~/.config/autostart/my-weather-indicator-autostart.desktop
 echo 'qBittorrent...'
 [ -e /usr/share/applications/qBittorrent.desktop ] && [ -e ~/.config/autostart/qbittorrent.desktop ] || ln -s /usr/share/applications/qBittorrent.desktop ~/.config/autostart/qbittorrent.desktop
 echo 'Shutter...'
@@ -133,13 +133,6 @@ if [[ ! -d $HOME/.config/Clementine ]]; then
 fi
 rm -f $HOME/.config/Clementine/Clementine.conf
 ln -s "$HOME/ownCloud/config/clementine/Clementine.conf" $HOME/.config/Clementine/Clementine.conf
-# my-weather-indicator config
-echo 'Symlink My Weather Indicator config..'
-if [[ ! -d $HOME/.config/my-weather-indicator ]]; then
-    mkdir -p $HOME/.config/my-weather-indicator
-fi
-rm -f $HOME/.config/my-weather-indicator/my-weather-indicator.conf
-ln -s "$HOME/ownCloud/config/my-weather-indicator/my-weather-indicator.conf" $HOME/.config/my-weather-indicator/my-weather-indicator.conf
 # variety config
 echo 'Symlink Variety configs and favourites..'
 if [[ ! -d $HOME/.config/variety ]]; then
@@ -198,7 +191,7 @@ echo 'Adding PPA for solaar..'
 sudo apt-add-repository -y ppa:daniel.pavel/solaar
 sudo apt-get update -qq
 echo 'Installing system tools...'
-sudo apt-get install htop cups-pdf curl virtualbox software-properties-common wifi-radar vim clusterssh solaar nfs-common gnome-web-photo feh logstalgia soundconverter autossh
+sudo apt-get install htop curl virtualbox software-properties-common wifi-radar vim clusterssh solaar nfs-common gnome-web-photo feh logstalgia soundconverter autossh
 echo 'Done.'
 main
 }
@@ -258,7 +251,7 @@ if [ $INPUT -eq 1 ]; then
     sudo apt-get update -qq
     echo 'Installing development tools...'
     # mongodb-server,lxc for juju
-    sudo apt-get install bzr devscripts git icontool python3-distutils-extra qtcreator ruby build-essential meld mysql-workbench nodejs ipython ipython-doc juju-core juju-local amulet charm-tools mongodb-server lxc python-setuptools python-dev giggle golang-go testdrive debhelper dpkg-dev pbuilder mariadb-server libmariadbclient-dev atom python-testtools python-fixtures
+    sudo apt-get install bzr devscripts git python3-distutils-extra ruby build-essential meld mysql-workbench nodejs ipython ipython-doc juju-core juju-local amulet charm-tools mongodb-server lxc python-setuptools python-dev giggle golang-go debhelper dpkg-dev pbuilder mariadb-server libmariadbclient-dev atom
     # required to compile python-mysql using pip
     sudo apt-get install -y libssl-dev libcrypto++-dev
     echo 'Install some Node modules...'
