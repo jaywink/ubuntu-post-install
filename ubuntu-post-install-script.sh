@@ -91,13 +91,15 @@ echo 'Adding Kubuntu backports PPA'
 sudo add-apt-repository -y ppa:kubuntu-ppa/backports
 echo 'Adding Clementine stable PPA'
 sudo add-apt-repository -y ppa:me-davidsansome/clementine
+# Caffeine
+sudo add-apt-repository -y ppa:jaywink/caffeine
 echo 'Adding ownCloud repo'
 sudo sh -c "echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/xUbuntu_14.10/ /' >> /etc/apt/sources.list.d/owncloud-client.list"
 wget http://download.opensuse.org/repositories/isv:ownCloud:desktop/xUbuntu_14.10/Release.key -O /tmp/owncloud.key
 sudo apt-key add - < /tmp/owncloud.key
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
-sudo apt-get install gimp gimp-plugin-registry gimp-data-extras xchat terminator digikam digikam-doc keepassx chromium-browser calibre qbittorrent shutter diodon indicator-multiload y-ppa-manager compizconfig-settings-manager thunderbird xul-ext-lightning vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine simplescreenrecorder owncloud-client handbrake-gtk handbrake-cli asunder pinta krita
+sudo apt-get install gimp gimp-plugin-registry gimp-data-extras xchat terminator digikam digikam-doc keepassx chromium-browser calibre qbittorrent shutter diodon indicator-multiload y-ppa-manager compizconfig-settings-manager thunderbird xul-ext-lightning vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine simplescreenrecorder owncloud-client handbrake-gtk handbrake-cli asunder pinta krita caffeine
 # Pidgin configuration
 echo "Setting Pidgin settings..."
 #quieten signon notifs
