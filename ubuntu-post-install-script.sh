@@ -99,7 +99,7 @@ wget http://download.opensuse.org/repositories/isv:ownCloud:desktop/xUbuntu_14.1
 sudo apt-key add - < /tmp/owncloud.key
 sudo apt-get update -qq
 echo 'Installing selected favourite applications...'
-sudo apt-get install gimp gimp-plugin-registry gimp-data-extras xchat terminator digikam digikam-doc keepassx chromium-browser calibre qbittorrent shutter diodon indicator-multiload y-ppa-manager compizconfig-settings-manager thunderbird xul-ext-lightning vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine simplescreenrecorder owncloud-client handbrake-gtk handbrake-cli asunder pinta krita caffeine unity-tweak-tool
+sudo apt-get install gimp gimp-plugin-registry gimp-data-extras xchat terminator digikam digikam-doc keepassx chromium-browser calibre qbittorrent shutter diodon indicator-multiload y-ppa-manager compizconfig-settings-manager compiz-plugins-extra thunderbird xul-ext-lightning vlc ubuntu-tweak variety pidgin pidgin-plugin-pack pidgin-libnotify minitube clementine simplescreenrecorder owncloud-client handbrake-gtk handbrake-cli asunder pinta krita caffeine unity-tweak-tool
 # Pidgin configuration
 echo "Setting Pidgin settings..."
 #quieten signon notifs
